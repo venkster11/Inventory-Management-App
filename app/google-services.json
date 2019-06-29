@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "483005577781",
+    "firebase_url": "https://inventoryapp-4216a.firebaseio.com",
+    "project_id": "inventoryapp-4216a",
+    "storage_bucket": "inventoryapp-4216a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483005577781:android:a891797bfe40623d",
+        "android_client_info": {
+          "package_name": "com.venkat.inventory_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483005577781-94d1t1bp9ruolg1cp367tjd2m2blnl2d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.venkat.inventory_app",
+            "certificate_hash": "a2431be596fd2012a36cc225ed95dd98768d9993"
+          }
+        },
+        {
+          "client_id": "483005577781-o43f4duecdtfm0sge160vadian3v7t60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNDXBQWZ793v-ct1E2h87JXG_rsB57wSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483005577781-o43f4duecdtfm0sge160vadian3v7t60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

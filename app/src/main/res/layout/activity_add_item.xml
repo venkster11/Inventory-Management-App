@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Not_needed.Add_item"
+    android:orientation="vertical"
+    android:background="#212121"
+    android:padding="16dp"
+    >
+
+    <EditText
+        android:id="@+id/item_name1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Item Name"
+        android:textColorHint="#ce93d8"
+        android:textColor="#ffffff"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/user_name1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="User Name"
+        android:textColorHint="#ce93d8"
+        android:textColor="#ffffff"
+        android:inputType="textMultiLine" />
+
+
+    <EditText
+        android:id="@+id/count1"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColorHint="#ce93d8"
+        android:textColor="#ffffff"
+        android:hint="Count"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btnsave"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="SAVE"
+        android:background="@drawable/curvebtn"
+        android:textColor="#ffffff"
+        android:textSize="18dp"/>
+
+</LinearLayout>
