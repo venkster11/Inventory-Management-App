@@ -22,14 +22,14 @@
         android:textColor="#000000"
         android:hint="Count"
         android:inputType="number" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rv_count"
-        android:gravity="center_horizontal"
-        android:text="REQUEST"
-        android:id="@+id/rv_request"
-        android:layout_centerHorizontal="true"
+
+        //android:layout_width="wrap_content"
+        //android:layout_height="wrap_content"
+       // android:layout_below="@id/rv_count"
+       // android:gravity="center_horizontal"
+       // android:text="REQUEST"
+       // android:id="@+id/rv_request"
+       // android:layout_centerHorizontal="true"
         />
 
 </RelativeLayout>

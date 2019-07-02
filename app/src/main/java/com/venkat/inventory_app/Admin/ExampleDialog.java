@@ -1,4 +1,4 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.Admin;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,10 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.R;
 
 public class ExampleDialog extends AppCompatDialogFragment {
     private EditText additem_name;

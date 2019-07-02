@@ -1,6 +1,5 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.Admin;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.venkat.inventory_app.Not_needed.Add_item;
+import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.R;
 
 public class MainADM extends AppCompatActivity {
 

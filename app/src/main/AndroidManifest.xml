@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainUSER"></activity>
+        <activity android:name=".User.MainUSER"></activity>
         <activity android:name=".Not_needed.Add_item" />
-        <activity android:name=".MainADM" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Admin.MainADM" />
+        <activity android:name=".Common.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

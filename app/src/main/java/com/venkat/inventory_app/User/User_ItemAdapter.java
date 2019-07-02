@@ -1,4 +1,4 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.User;
 
 import android.app.Dialog;
 import android.support.annotation.NonNull;
@@ -7,15 +7,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.R;
 
 public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_ItemAdapter.UserItemHolder> {
+    private OnItemClickListner listner;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -44,12 +45,12 @@ public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_It
 
 
 
-        userHolder.rv_layout.setOnClickListener(new View.OnClickListener() {
+    /*    userHolder.rv_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(viewGroup.getContext(),"Text Click"+String.valueOf(userHolder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         return new UserItemHolder(v);
     }
@@ -67,6 +68,27 @@ public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_It
             rv_layout=itemView.findViewById(R.id.rv_user_item_layout);
             textViewItemname=itemView.findViewById(R.id.item_nameu);
             textViewcount=itemView.findViewById(R.id.countu);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position=getAdapterPosition();
+                    if(position!=RecyclerView.NO_POSITION && listner!=null){
+                        listner.onItemClick(getSnapshots().getSnapshot(position),position);
+                    }
+                }
+            });
+
         }
     }
+
+    public interface OnItemClickListner{
+        void onItemClick(DocumentSnapshot documentSnapshot,int position);
+
+    }
+    public void setOnItemClickListener(OnItemClickListner listener){
+
+        this.listner=listener;
+    }
+
 }

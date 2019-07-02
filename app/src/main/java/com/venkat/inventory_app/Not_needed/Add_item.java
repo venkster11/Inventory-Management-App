@@ -2,7 +2,6 @@ package com.venkat.inventory_app.Not_needed;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,10 +9,8 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.venkat.inventory_app.Itemshow;
+import com.venkat.inventory_app.Common.Itemshow;
 import com.venkat.inventory_app.R;
-
-import java.util.Dictionary;
 
 public class Add_item extends AppCompatActivity {
 

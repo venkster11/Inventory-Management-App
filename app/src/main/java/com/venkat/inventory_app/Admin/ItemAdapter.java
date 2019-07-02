@@ -1,4 +1,4 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.Admin;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.R;
 
 public class ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, ItemAdapter.ItemHolder> {
 
