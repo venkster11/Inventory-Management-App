@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.venkat.inventory_app.Common.Itemshow;
@@ -17,10 +19,11 @@ import com.venkat.inventory_app.R;
 
 public class ExampleDialog extends AppCompatDialogFragment {
     private EditText additem_name;
-    private EditText adduser_name;
+   // private EditText adduser_name;
     private EditText addcount;
     private Button addsave;
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
     @Override
@@ -49,7 +52,7 @@ public class ExampleDialog extends AppCompatDialogFragment {
                 });
 
         additem_name=view.findViewById(R.id.item_name1);
-        adduser_name=view.findViewById(R.id.user_name1);
+        //adduser_name=view.findViewById(R.id.user_name1);
         addcount=view.findViewById(R.id.count1);
         //  addcount.setInputType(InputType.TYPE_CLASS_NUMBER);
         addsave=view.findViewById(R.id.btnsave);
@@ -60,9 +63,9 @@ public class ExampleDialog extends AppCompatDialogFragment {
     private void saveitem(){
 
         String item_name=additem_name.getText().toString();
-        String user_name=adduser_name.getText().toString();
+       // String user_name=adduser_name.getText().toString();
         int count=Integer.parseInt(addcount.getText().toString());
-
+        String user_name = user.getDisplayName();
 
 
         CollectionReference notebookRef = FirebaseFirestore.getInstance()

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,6 +23,8 @@ public class MainUSER extends AppCompatActivity {
 
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     private CollectionReference notebookRef=db.collection("Notebook");
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+   // String uid = user.getUid();
 
     String value;
     private User_ItemAdapter adapter;
@@ -56,22 +60,12 @@ public class MainUSER extends AppCompatActivity {
                 String path = documentSnapshot.getReference().getPath();
                // DocumentReference itemname=db.collection("Notebook").document(path);
                 value = documentSnapshot.getString("item_name");
-               /* Intent sendStuff = new Intent(MainUSER.this, User_Request_Dialog.class);
-                sendStuff.putExtra("key", value);
-                startActivity(sendStuff);*/
-
-
-
+                String name = user.getDisplayName();
                 Toast.makeText(MainUSER.this,
-                        "Position: " + position + " ID: " + value, Toast.LENGTH_SHORT).show();
+                        "Position: " + position + "Name: " + name, Toast.LENGTH_SHORT).show();
 
-
-
-                //setContentView(R.layout.dialog_user);
                 openRequest_Dialog();
-              /*  setContentView(R.layout.dialog_user);
-                item_name_dialog=findViewById(R.id.rv_item_name);
-                item_name_dialog.setText(value);*/
+
             }
         });
     }

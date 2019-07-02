@@ -15,15 +15,7 @@
         android:textColor="#000000"
         android:inputType="text" />
 
-    <EditText
-        android:id="@+id/user_name1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="User Name"
-        android:layout_below="@+id/item_name1"
-        android:textColorHint="#ce93d8"
-        android:textColor="#000000"
-        android:inputType="textMultiLine" />
+
 
 
     <EditText
@@ -31,7 +23,7 @@
         android:layout_width="77dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_below="@+id/user_name1"
+        android:layout_below="@+id/item_name1"
         android:textColorHint="#ce93d8"
         android:textColor="#000000"
         android:hint="Count"
