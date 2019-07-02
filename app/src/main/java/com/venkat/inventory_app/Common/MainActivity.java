@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.venkat.inventory_app.Admin.MainADM;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.User.MainUSER;
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else
             {
+                //FirebaseFirestore db = FirebaseFirestore.getInstance();
+                //CollectionReference notebookRef = db.collection(userid);
+                //notebookRef.document("extra").set("collect");
                 Intent intent1=new Intent(MainActivity.this, MainUSER.class);
                 startActivity(intent1);
                 Toast.makeText(this, "USER - " + userid, Toast.LENGTH_SHORT).show();

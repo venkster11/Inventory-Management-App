@@ -24,9 +24,13 @@ public class MainUSER extends AppCompatActivity {
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     private CollectionReference notebookRef=db.collection("Notebook");
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-   // String uid = user.getUid();
-
+    String uid = user.getUid();
+    String id;
+    String name;
     String value;
+    String docu_id;
+    Number item_avail;
+
     private User_ItemAdapter adapter;
 
     private TextView item_name_dialog;
@@ -39,7 +43,7 @@ public class MainUSER extends AppCompatActivity {
     }
 
     private void setUpRecyclerView(){
-        Query query = notebookRef.orderBy("count", Query.Direction.DESCENDING);
+        Query query = notebookRef.orderBy("item_name", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Itemshow> options = new FirestoreRecyclerOptions.Builder<Itemshow>()
                 .setQuery(query, Itemshow.class)
@@ -56,13 +60,18 @@ public class MainUSER extends AppCompatActivity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Itemshow itemshow=documentSnapshot.toObject(Itemshow.class);
-                String id=documentSnapshot.getId();
-                String path = documentSnapshot.getReference().getPath();
-               // DocumentReference itemname=db.collection("Notebook").document(path);
-                value = documentSnapshot.getString("item_name");
-                String name = user.getDisplayName();
+                // String path = documentSnapshot.getReference().getPath();
+                // DocumentReference itemname=db.collection("Notebook").document(path);
+                // item_avail=documentSnapshot.getDouble("count");
+
+
+                value = documentSnapshot.getString("item_name");//name of the item
+                docu_id=documentSnapshot.getId();//docu id
+                item_avail = (Long) documentSnapshot.get("count");// count of item
+                name = user.getDisplayName();// username
+                uid = user.getUid();//userid
                 Toast.makeText(MainUSER.this,
-                        "Position: " + position + "Name: " + name, Toast.LENGTH_SHORT).show();
+                        "UID: " + item_avail + "   docu id: " + docu_id, Toast.LENGTH_SHORT).show();
 
                 openRequest_Dialog();
 
@@ -78,6 +87,20 @@ public class MainUSER extends AppCompatActivity {
     public String getMyData() {
         return value;
     }
+    public String Docu_id(){
+        return docu_id;
+    }
+    public Number countavail(){
+        return item_avail;
+    }
+    public String user_name(){
+        return name;
+    }
+    public String userid(){
+        return uid;
+    }
+
+
 
     @Override
     protected void onStart() {

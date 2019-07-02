@@ -54,7 +54,7 @@ public class MainADM extends AppCompatActivity {
     }
 
     private void setUpRecyclerView(){
-        Query query = notebookRef.orderBy("count", Query.Direction.DESCENDING);
+        Query query = notebookRef.orderBy("item_name", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Itemshow> options = new FirestoreRecyclerOptions.Builder<Itemshow>()
                 .setQuery(query, Itemshow.class)
