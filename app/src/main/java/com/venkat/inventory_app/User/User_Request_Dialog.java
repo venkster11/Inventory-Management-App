@@ -59,6 +59,7 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                         if(reqcount <= countavail)
                         {
                             Request_Model request_model = new Request_Model(docu_id, nameitem, username, uid, countavail, reqcount, null);
+                            //Request_Model request_model=new Request_Model(nameitem,username,countavail,reqcount);
                             db.collection("Requests").document().set(request_model)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override

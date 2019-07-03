@@ -15,9 +15,8 @@ public class Request_Model {
     private @ServerTimestamp
     Date timestamp;
 
-    public Request_Model(){
+    public Request_Model(){}
 
-    }
 
     public Request_Model(String docu_id ,String nameitem, String username, String uid, int countavail, int reqcount, Date timestamp ){
         this.docu_id=docu_id;

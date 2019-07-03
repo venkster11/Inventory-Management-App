@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/user_name_rq"
             android:id="@+id/textavail"
-            android:text="Availabele"
+            android:text="Available"
             android:textColor="@color/lightdark"/>
 
         <TextView
@@ -47,8 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/user_name_rq"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/textavail"
             android:text="1" />
         <TextView
@@ -64,8 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/countavailable"
-            android:layout_marginLeft="17dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="0dp"
             android:layout_toRightOf="@+id/textrequested"
             android:text="1" />
 
@@ -81,11 +81,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_name_rq"
-            android:layout_marginLeft="170dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginLeft="121dp"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/user_name_rq"
-            android:background="@color/colorPrimary"
-            android:text="REQUSTED"
+
+            android:text="REQUESTED"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/lightdark" />
 

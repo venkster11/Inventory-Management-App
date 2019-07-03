@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_aviailable"
+        android:icon="@drawable/ic_available"
+        android:title="Available" />
+
+    <item
+        android:id="@+id/nav_Requests"
+        android:icon="@drawable/ic_requests"
+        android:title="Requests" />
+
+    <item
+        android:id="@+id/nav_Logs"
+        android:icon="@drawable/ic_assignment_black_24dp"
+        android:title="Logs" />
+
+</menu>

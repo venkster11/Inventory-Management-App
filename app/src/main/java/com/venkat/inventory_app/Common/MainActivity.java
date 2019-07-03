@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.venkat.inventory_app.Admin.MainADM;
+import com.venkat.inventory_app.MainAdmin_BottomNav;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.User.MainUSER;
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //notebookRef.document("extra").set("collect");
                 Intent intent1=new Intent(MainActivity.this, MainUSER.class);
                 startActivity(intent1);
+                //finish();
                 Toast.makeText(this, "USER - " + userid, Toast.LENGTH_SHORT).show();
             }
         }
@@ -77,9 +79,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
+        Button B_Nav=(Button)findViewById(R.id.btn_nav);
         Button btnadmin=(Button)findViewById(R.id.admin);
         Button btnuser=(Button)findViewById(R.id.user);
+
+        B_Nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3=new Intent(MainActivity.this, MainAdmin_BottomNav.class);
+                startActivity(intent3);
+            }
+        });
+
         btnadmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

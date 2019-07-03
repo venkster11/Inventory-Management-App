@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.User.Request_Model;
 
@@ -16,12 +17,15 @@ import java.awt.font.TextAttribute;
 
 public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Model,Admin_Request_Adapter.RequestHolder> {
 
+    private OnItemClickListner listner;
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
      * FirestoreRecyclerOptions} for configuration options.
      *
      * @param options
      */
+
+
     public Admin_Request_Adapter(@NonNull FirestoreRecyclerOptions<Request_Model> options) {
         super(options);
     }
@@ -32,7 +36,7 @@ public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Mode
         holder.UserName.setText(model.getUsername());
         holder.AvailableCount.setText(String.valueOf(model.getCountavail()));
         holder.RequestedCount.setText(String.valueOf(model.getReqcount()));
-        holder.DatenTime.setText((CharSequence) model.getTimestamp());
+        //holder.DatenTime.setText((CharSequence) model.getTimestamp());
 
     }
 
@@ -49,7 +53,7 @@ public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Mode
         TextView UserName;
         TextView AvailableCount;
         TextView RequestedCount;
-        TextView DatenTime;
+       // TextView DatenTime;
 
         public RequestHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,7 +61,28 @@ public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Mode
             UserName=itemView.findViewById(R.id.user_name_rq);
             AvailableCount=itemView.findViewById(R.id.countavailable);
             RequestedCount=itemView.findViewById(R.id.countrequested);
-            DatenTime=itemView.findViewById(R.id.date_time);
+            //DatenTime=itemView.findViewById(R.id.date_time);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(position!=RecyclerView.NO_POSITION && listner!=null){
+                        listner.onItemClick(getSnapshots().getSnapshot(position),position);
+                    }
+                }
+            });
+
         }
+
+    }
+
+    public interface OnItemClickListner{
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
+
+    }
+
+    public void setOnItemClickListener(OnItemClickListner listener){
+        this.listner=listener;
     }
 }
