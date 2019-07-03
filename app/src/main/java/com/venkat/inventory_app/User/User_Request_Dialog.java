@@ -60,7 +60,7 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                         int reqcount=Integer.parseInt(request_count.getText().toString());
                         if(reqcount <= countavail)
                         {
-                            Request_Model request_model = new Request_Model(docu_id, nameitem, username, uid, countavail, reqcount);
+                            Request_Model request_model = new Request_Model(docu_id, nameitem, username, uid, countavail, reqcount, null);
                             db.collection("Requests").document().set(request_model)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
