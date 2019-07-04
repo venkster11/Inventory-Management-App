@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //FirebaseFirestore db = FirebaseFirestore.getInstance();
                 //CollectionReference notebookRef = db.collection(userid);
                 //notebookRef.document("extra").set("collect");
-                Intent intent1=new Intent(MainActivity.this, MainUSER.class);
+                Intent intent1=new Intent(MainActivity.this, MainUser_BottomNav.class);
                 startActivity(intent1);
                 //finish();
                 Toast.makeText(this, "USER - " + userid, Toast.LENGTH_SHORT).show();
