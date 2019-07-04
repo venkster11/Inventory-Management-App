@@ -3,6 +3,7 @@ package com.venkat.inventory_app.User;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -68,6 +69,20 @@ public class User_Available_Frag extends Fragment {
                 item_avail = (Long) documentSnapshot.get("count");// count of item
                 name = user.getDisplayName();// username
                 uid = user.getUid();//userid
+
+                Bundle args = new Bundle();
+                args.putString("key", value);
+                args.putString("docu_id",docu_id);
+                args.putLong("item_avail", (Long) item_avail);
+                args.putString("name",name);
+                args.putString("uid",uid);
+
+                DialogFragment newFragment = new User_Request_Dialog();
+                newFragment.setArguments(args);
+                newFragment.show(getFragmentManager(), "TAG");
+
+//Inflate the fragment
+               // getFragmentManager().beginTransaction().add(R.id.fragment_container, ldf).commit();
 //                Toast.makeText(MainUser_BottomNav.this,
 //                        "UID: " + item_avail + "   docu id: " + docu_id, Toast.LENGTH_SHORT).show();
                 User_Request_Dialog user_request_dialog = new User_Request_Dialog();
@@ -79,6 +94,21 @@ public class User_Available_Frag extends Fragment {
         return rootView;
     }
 
+    public String getMyData() {
+        return value;
+    }
+    public String Docu_id(){
+        return docu_id;
+    }
+    public Number countavail(){
+        return item_avail;
+    }
+    public String user_name(){
+        return name;
+    }
+    public String userid(){
+        return uid;
+    }
 
     @Override
     public void onStart() {
