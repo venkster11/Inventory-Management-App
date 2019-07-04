@@ -3,6 +3,7 @@ package com.venkat.inventory_app.Admin;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.venkat.inventory_app.Common.Itemshow;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.User.Request_Model;
 import com.venkat.inventory_app.User.User_ItemAdapter;
+import com.venkat.inventory_app.User.User_Request_Dialog;
 
 public class Admin_Request_Frag extends Fragment {
 
@@ -55,13 +57,30 @@ public class Admin_Request_Frag extends Fragment {
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 //Request_Model request_model = documentSnapshot.toObject(Admin_Request_Adapter.class);
                 Request_Model request_model = documentSnapshot.toObject(Request_Model.class);
-                id = documentSnapshot.getId();
+                //id = documentSnapshot.getId();
                // String uid = user.getUid();
               //  String docu_id = documentSnapshot.getString("docu_id");
-                String value=documentSnapshot.getString("nameitem");
+                //String value=documentSnapshot.getString("nameitem");
+
+                Number countavail =(Long) documentSnapshot.get("countavail");
+                String docu_id = (String) documentSnapshot.get("docu_id");
+                String nameitem = (String) documentSnapshot.get("nameitem");
+                Number reqcount = (Long) documentSnapshot.get("reqcount");
+                String uid = (String) documentSnapshot.get("uid");
+
+                Bundle args = new Bundle();
+                args.putLong("countavail", (Long) countavail);
+                args.putString("docu_id",docu_id);
+                args.putString("nameitem",nameitem);
+                args.putLong("reqcount", (Long) reqcount);
+                args.putString("uid", uid);
+
+                DialogFragment newFragment = new Admin_AcceptRequest_Dialog();
+                newFragment.setArguments(args);
+                newFragment.show(getFragmentManager(), "TAG");
 
 
-                Toast.makeText(getActivity(), "clicked " + value,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "clicked " + nameitem,Toast.LENGTH_SHORT).show();
 
                 Admin_AcceptRequest_Dialog admin_acceptRequest_dialog = new Admin_AcceptRequest_Dialog();
                 admin_acceptRequest_dialog.show(getFragmentManager(),"accept request dialog");

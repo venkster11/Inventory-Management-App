@@ -94,7 +94,7 @@ public class User_Available_Frag extends Fragment {
         return rootView;
     }
 
-    public String getMyData() {
+   /* public String getMyData() {
         return value;
     }
     public String Docu_id(){
@@ -108,7 +108,7 @@ public class User_Available_Frag extends Fragment {
     }
     public String userid(){
         return uid;
-    }
+    }*/
 
     @Override
     public void onStart() {

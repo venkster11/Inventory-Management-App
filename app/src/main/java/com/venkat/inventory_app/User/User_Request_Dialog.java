@@ -24,7 +24,7 @@ import com.venkat.inventory_app.R;
 
 public class User_Request_Dialog extends AppCompatDialogFragment {
 
-   
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText request_count;
     private TextView item_name_dialog;
@@ -32,10 +32,11 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_user, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_user, null);
 
         //User_Available_Frag activity = new User_Available_Frag();//getting i
        /* final String docu_id=activity.Docu_id();
