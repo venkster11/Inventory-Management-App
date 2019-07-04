@@ -18,6 +18,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.venkat.inventory_app.Admin_AcceptRequest_Dialog;
 import com.venkat.inventory_app.Common.Itemshow;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.User.Request_Model;
@@ -61,6 +62,9 @@ public class Admin_Request_Frag extends Fragment {
 
 
                 Toast.makeText(getActivity(), "clicked " + value,Toast.LENGTH_SHORT).show();
+
+                Admin_AcceptRequest_Dialog admin_acceptRequest_dialog = new Admin_AcceptRequest_Dialog();
+                admin_acceptRequest_dialog.show(getFragmentManager(),"accept request dialog");
             }
         });
 
