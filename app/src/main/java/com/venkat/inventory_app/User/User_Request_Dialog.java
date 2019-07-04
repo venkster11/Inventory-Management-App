@@ -58,6 +58,8 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
             final String username=mArgs.getString("name");
             final String uid=mArgs.getString("uid");
 
+
+
             item_name_dialog.setText(nameitem);
 
 

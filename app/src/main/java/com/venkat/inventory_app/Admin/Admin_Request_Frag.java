@@ -67,6 +67,8 @@ public class Admin_Request_Frag extends Fragment {
                 String nameitem = (String) documentSnapshot.get("nameitem");
                 Number reqcount = (Long) documentSnapshot.get("reqcount");
                 String uid = (String) documentSnapshot.get("uid");
+                String Request_docu_id = documentSnapshot.getId();
+                //Number RealAvailCount = (Long)notebookRef.document(docu_id)
 
                 Bundle args = new Bundle();
                 args.putLong("countavail", (Long) countavail);
@@ -74,6 +76,7 @@ public class Admin_Request_Frag extends Fragment {
                 args.putString("nameitem",nameitem);
                 args.putLong("reqcount", (Long) reqcount);
                 args.putString("uid", uid);
+                args.putString("Request_docu_id",Request_docu_id);
 
                 DialogFragment newFragment = new Admin_AcceptRequest_Dialog();
                 newFragment.setArguments(args);

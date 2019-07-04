@@ -19,6 +19,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.venkat.inventory_app.Admin_AcceptRequest_Dialog;
 import com.venkat.inventory_app.Common.Itemshow;
 import com.venkat.inventory_app.R;
 
@@ -81,10 +82,7 @@ public class User_Available_Frag extends Fragment {
                 newFragment.setArguments(args);
                 newFragment.show(getFragmentManager(), "TAG");
 
-//Inflate the fragment
-               // getFragmentManager().beginTransaction().add(R.id.fragment_container, ldf).commit();
-//                Toast.makeText(MainUser_BottomNav.this,
-//                        "UID: " + item_avail + "   docu id: " + docu_id, Toast.LENGTH_SHORT).show();
+
                 User_Request_Dialog user_request_dialog = new User_Request_Dialog();
                 user_request_dialog.show(getFragmentManager(), "request dialog");
 

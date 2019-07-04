@@ -78,12 +78,13 @@
             android:textColor="@color/lightdark"/>
 
         <TextView
+            android:id="@+id/requested_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item_name_rq"
-            android:layout_marginLeft="121dp"
-            android:layout_marginTop="2dp"
-            android:layout_toRightOf="@+id/user_name_rq"
+            android:layout_below="@+id/user_name_rq"
+            android:layout_marginLeft="159dp"
+            android:layout_marginTop="1dp"
+            android:layout_toRightOf="@+id/textavail"
 
             android:text="REQUESTED"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"

@@ -32,8 +32,8 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.admin_accept_request_dialog,null);
+        final LayoutInflater inflater = getActivity().getLayoutInflater();
+        final View view = inflater.inflate(R.layout.admin_accept_request_dialog,null);
 
         Bundle mArgs = getArguments();
         if(mArgs!=null) {
@@ -47,6 +47,8 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
             final int reqcount = reqcount1.intValue();
 
             final String uid = mArgs.getString("uid");
+            final String Request_docuID = mArgs.getString("Request_docu_id");
+
 
             final int remaining_item = countavail-reqcount;
 
@@ -56,7 +58,7 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Toast.makeText(getActivity(), "currid  "+Request_docuID, Toast.LENGTH_SHORT).show();
 
                         }
                     })
@@ -68,10 +70,15 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                             noteRef.update("count",remaining_item);
 
                             DocumentReference borrowed=db.collection(uid).document();
+
                             Map<String, Object> note = new HashMap<>();
                             note.put("item_name", nameitem);
                             note.put("mycount", reqcount);
                             note.put("docuID",docu_id);
+                            //View rootView = inflater.inflate(R.layout.request_recycler, null);
+                            //requested=(TextView) view.findViewById(R.id.requested_text);
+                            //requested.setText("Accepted");
+
 
                             borrowed.set(note)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -89,7 +96,9 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                         }
                                     });
 
-                            Toast.makeText(getActivity(), "data" + nameitem, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "data" + nameitem, Toast.LENGTH_SHORT).show();
+                            DocumentReference requestdelete=db.collection("Requests").document(Request_docuID);
+                            requestdelete.delete();
                         }
                     });
         }
