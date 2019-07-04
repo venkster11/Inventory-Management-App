@@ -21,6 +21,7 @@ import com.venkat.inventory_app.Admin.MainADM;
 import com.venkat.inventory_app.MainAdmin_BottomNav;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.User.MainUSER;
+import com.venkat.inventory_app.User.MainUser_BottomNav;
 
 import java.util.Arrays;
 
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1=new Intent(MainActivity.this, MainUSER.class);
+                Intent intent1=new Intent(MainActivity.this, MainUser_BottomNav.class);
                 startActivity(intent1);
             }
         });
