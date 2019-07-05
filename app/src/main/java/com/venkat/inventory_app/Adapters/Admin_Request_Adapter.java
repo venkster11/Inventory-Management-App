@@ -1,4 +1,4 @@
-package com.venkat.inventory_app.Admin;
+package com.venkat.inventory_app.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,20 +11,11 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.venkat.inventory_app.R;
-import com.venkat.inventory_app.User.Request_Model;
-
-import java.awt.font.TextAttribute;
+import com.venkat.inventory_app.Model.Request_Model;
 
 public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Model,Admin_Request_Adapter.RequestHolder> {
 
     private OnItemClickListner listner;
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-
 
     public Admin_Request_Adapter(@NonNull FirestoreRecyclerOptions<Request_Model> options) {
         super(options);
@@ -38,6 +29,9 @@ public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Mode
         holder.RequestedCount.setText(String.valueOf(model.getReqcount()));
         //holder.DatenTime.setText((CharSequence) model.getTimestamp());
 
+       // holder.DatenTime.setText((Date)model.getTimestamp());
+
+
     }
 
     @NonNull
@@ -47,13 +41,17 @@ public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Mode
         return new RequestHolder(v);
     }
 
+    public void deleteItem(int position) {
+        getSnapshots().getSnapshot(position).getReference().delete();
+    }
+
     class RequestHolder extends RecyclerView.ViewHolder{
 
         TextView ItemName;
         TextView UserName;
         TextView AvailableCount;
         TextView RequestedCount;
-       // TextView DatenTime;
+        TextView DatenTime;
 
         public RequestHolder(@NonNull View itemView) {
             super(itemView);

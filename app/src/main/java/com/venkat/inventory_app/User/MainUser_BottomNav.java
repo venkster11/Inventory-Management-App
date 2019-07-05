@@ -10,12 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.venkat.inventory_app.Admin_available_frag;
 import com.venkat.inventory_app.Common.MainActivity;
 import com.venkat.inventory_app.R;
 

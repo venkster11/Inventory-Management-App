@@ -14,13 +14,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.Model.Request_Model;
 import com.venkat.inventory_app.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class User_Request_Dialog extends AppCompatDialogFragment {
 
@@ -35,21 +35,9 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-//<<<<<<< Updated upstream
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_user, null);
 
-        //User_Available_Frag activity = new User_Available_Frag();//getting i
-       /* final String docu_id=activity.Docu_id();
-=======
-        User_Available_Frag activity;//getting i
-        final String docu_id=activity.Docu_id();
->>>>>>> Stashed changes
-        final String nameitem = activity.getMyData();
-       // final Number countavail1=activity.countavail();
-        //final int countavail=countavail1.intValue();
-        final String username=activity.user_name();
-        final String uid=activity.userid();*/
 
 
         item_name_dialog=view.findViewById(R.id.rv_item_name);
@@ -66,9 +54,6 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
 
 
             item_name_dialog.setText(nameitem);
-
-
-            //item_name_dialog.setText(nameitem);
 
             builder.setView(view)
                     .setTitle("Component Request")
@@ -102,6 +87,22 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                                             //Toast.makeText(getContext(), "Request Failed", Toast.LENGTH_SHORT).show();
                                         }
                                     });
+
+                            DocumentReference userlogs = db.collection(uid+" Logs").document();
+                            Map<String, Object> note1 = new HashMap<>();
+                            note1.put("item_name", nameitem);
+                            note1.put("countitem", reqcount);
+                            note1.put("username",username);
+                            note1.put("status","Request Sent");
+                            userlogs.set(note1);
+
+                            DocumentReference adminlogs = db.collection("AdminLogs").document();
+                            Map<String, Object> note2 = new HashMap<>();
+                            note2.put("item_name", nameitem);
+                            note2.put("countitem", reqcount);
+                            note2.put("username","User "+username);
+                            note2.put("status","Request Received");
+                            adminlogs.set(note2);
 
                            // Toast.makeText(getActivity(), "item available", Toast.LENGTH_SHORT).show();
                         }

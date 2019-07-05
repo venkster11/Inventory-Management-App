@@ -1,4 +1,4 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,8 @@ import android.widget.TextView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.venkat.inventory_app.Admin.Admin_Request_Adapter;
+import com.venkat.inventory_app.Model.Borrowed_Model;
+import com.venkat.inventory_app.R;
 
 public class User_Borrowed_Adapter extends FirestoreRecyclerAdapter<Borrowed_Model, User_Borrowed_Adapter.BorrowedHolder> {
 

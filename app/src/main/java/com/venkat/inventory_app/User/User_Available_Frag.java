@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,8 +18,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.venkat.inventory_app.Admin_AcceptRequest_Dialog;
-import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.Model.Itemshow;
+import com.venkat.inventory_app.Adapters.User_ItemAdapter;
 import com.venkat.inventory_app.R;
 
 public class User_Available_Frag extends Fragment {
@@ -60,10 +59,6 @@ public class User_Available_Frag extends Fragment {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Itemshow itemshow = documentSnapshot.toObject(Itemshow.class);
-                // String path = documentSnapshot.getReference().getPath();
-                // DocumentReference itemname=db.collection("Notebook").document(path);
-                // item_avail=documentSnapshot.getDouble("count");
-
 
                 value = documentSnapshot.getString("item_name");//name of the item
                 docu_id = documentSnapshot.getId();//docu id

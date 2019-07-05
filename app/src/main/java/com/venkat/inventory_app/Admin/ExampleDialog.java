@@ -13,9 +13,13 @@ import android.widget.EditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.Model.Itemshow;
 import com.venkat.inventory_app.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ExampleDialog extends AppCompatDialogFragment {
     private EditText additem_name;
@@ -24,6 +28,10 @@ public class ExampleDialog extends AppCompatDialogFragment {
     private Button addsave;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+   // FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
+    //String uid = user.getUid();
+    String username = user.getDisplayName();
 
 
     @Override
@@ -71,5 +79,16 @@ public class ExampleDialog extends AppCompatDialogFragment {
         CollectionReference notebookRef = FirebaseFirestore.getInstance()
                 .collection("Notebook");
         notebookRef.add(new Itemshow(item_name, user_name, count));
+
+        DocumentReference adminlogs = db.collection("AdminLogs").document();
+        Map<String, Object> note = new HashMap<>();
+        note.put("item_name", item_name);
+        note.put("countitem", count);
+        note.put("username","Admin "+user_name);
+        note.put("status","Item Added");
+
+        adminlogs.set(note);
+
+
     }
 }

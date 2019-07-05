@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.Model.Itemshow;
 import com.venkat.inventory_app.R;
 
 public class Add_item extends AppCompatActivity {

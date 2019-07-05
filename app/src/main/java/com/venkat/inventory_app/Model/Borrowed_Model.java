@@ -1,4 +1,4 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.Model;
 
 public class Borrowed_Model {
 

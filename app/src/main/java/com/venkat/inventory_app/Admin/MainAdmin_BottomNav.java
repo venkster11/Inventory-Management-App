@@ -1,4 +1,4 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.Admin;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -14,8 +14,8 @@ import android.view.MenuItem;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.venkat.inventory_app.Admin.Admin_Request_Frag;
 import com.venkat.inventory_app.Common.MainActivity;
+import com.venkat.inventory_app.R;
 
 public class MainAdmin_BottomNav extends AppCompatActivity {
 

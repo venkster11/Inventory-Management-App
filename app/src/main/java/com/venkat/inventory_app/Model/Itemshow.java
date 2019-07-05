@@ -1,4 +1,4 @@
-package com.venkat.inventory_app.Common;
+package com.venkat.inventory_app.Model;
 
 import android.content.Intent;
 

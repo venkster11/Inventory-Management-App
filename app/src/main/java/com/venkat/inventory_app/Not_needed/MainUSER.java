@@ -1,6 +1,5 @@
-package com.venkat.inventory_app.User;
+package com.venkat.inventory_app.Not_needed;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,12 +11,13 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.Model.Itemshow;
+import com.venkat.inventory_app.Adapters.User_ItemAdapter;
 import com.venkat.inventory_app.R;
+import com.venkat.inventory_app.User.User_Request_Dialog;
 
 public class MainUSER extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.Admin;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -14,8 +14,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.venkat.inventory_app.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +26,8 @@ import java.util.Map;
 public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String username = user.getDisplayName();
 
     String accepted = "Accepted";
     TextView requested;
@@ -95,6 +100,22 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                             //Log.d(TAG, "onFailure: ");
                                         }
                                     });
+
+                            DocumentReference adminlogs = db.collection("AdminLogs").document();
+                            Map<String, Object> note1 = new HashMap<>();
+                            note1.put("item_name", nameitem);
+                            note1.put("countitem", reqcount);
+                            note1.put("username","Admin "+username);
+                            note1.put("status","Request Accepted");
+                            adminlogs.set(note1);
+
+                            DocumentReference userlogs = db.collection(uid+" Logs").document();
+                            Map<String, Object> note11 = new HashMap<>();
+                            note11.put("item_name", nameitem);
+                            note11.put("countitem", reqcount);
+                            note11.put("username",username);
+                            note11.put("status","Request Accepted");
+                            userlogs.set(note11);
 
                             //Toast.makeText(getActivity(), "data" + nameitem, Toast.LENGTH_SHORT).show();
                             DocumentReference requestdelete=db.collection("Requests").document(Request_docuID);

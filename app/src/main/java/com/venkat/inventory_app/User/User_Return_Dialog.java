@@ -1,4 +1,4 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.User;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,12 +11,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.venkat.inventory_app.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -27,6 +33,9 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
    // public Number realcount1;
   //  public int realcount;
     //private CollectionReference notebookRef = db.collection(uid);
+   FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = user.getUid();
+    String username = user.getDisplayName();
 
     private Number mycountavail1;
     private int mycountavail;
@@ -59,25 +68,7 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
 
            final DocumentReference realcountdb = db.collection("Notebook").document(docuid);
            final DocumentReference userdb = db.collection(user_uid).document(userdoc_id);
-          /*  realcountdb.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    if (e != null) {
-                        Toast.makeText(getActivity(), "Error while loading!", Toast.LENGTH_SHORT).show();
-                        //Log.d(TAG, e.toString());
-                        return;
-                    }
-                    if (documentSnapshot.exists()) {
-                        realcount1 = (Long) documentSnapshot.get("count");
-                        realcount = realcount1.intValue();
-                        //String title = documentSnapshot.getString(KEY_TITLE);
-                       // String description = documentSnapshot.getString(KEY_DESCRIPTION);
 
-                        //textViewData.setText("Title: " + title + "\n" + "Description: " + description);
-                    }
-
-                }
-            });*/
 
 
 
@@ -94,22 +85,37 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
                         public void onClick(DialogInterface dialog, int which) {
 
                             int return_count = Integer.parseInt(ReturnCount.getText().toString());
-                            Toast.makeText(getActivity(), "c  " + realcount, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "real count  " + realcount, Toast.LENGTH_SHORT).show();
                             int user_actual = mycountavail-return_count;
-                            if(return_count<=mycountavail){
-                                int actual = realcount+return_count;
+                            if(return_count<=mycountavail) {
+                                int actual = realcount + return_count;
 
-                                realcountdb.update("count",actual);
+                                realcountdb.update("count", actual);
 
-                               // realcount=realcount+return_count;
-                            }
+                                // realcount=realcount+return_count;
 
-                            if(user_actual==0)
-                            {
-                                userdb.delete();
-                            }
-                            else {
-                                userdb.update("mycount", user_actual);
+
+                                if (user_actual == 0) {
+                                    userdb.delete();
+                                } else {
+                                    userdb.update("mycount", user_actual);
+                                }
+
+                                DocumentReference userlogs = db.collection(uid+" Logs").document();
+                                Map<String, Object> note1 = new HashMap<>();
+                                note1.put("item_name", nameitem);
+                                note1.put("countitem", return_count);
+                                note1.put("username",username);
+                                note1.put("status","Item Returned");
+                                userlogs.set(note1);
+
+                                DocumentReference adminlogs = db.collection("AdminLogs").document();
+                                Map<String, Object> note2 = new HashMap<>();
+                                note2.put("item_name", nameitem);
+                                note2.put("countitem", return_count);
+                                note2.put("username","User "+username);
+                                note2.put("status","Request Received");
+                                adminlogs.set(note2);
                             }
                         }
                     });

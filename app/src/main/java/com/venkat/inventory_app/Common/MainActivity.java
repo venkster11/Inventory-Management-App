@@ -15,12 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.venkat.inventory_app.Admin.MainADM;
-import com.venkat.inventory_app.MainAdmin_BottomNav;
+import com.venkat.inventory_app.Not_needed.MainADM;
+import com.venkat.inventory_app.Admin.MainAdmin_BottomNav;
 import com.venkat.inventory_app.R;
-import com.venkat.inventory_app.User.MainUSER;
 import com.venkat.inventory_app.User.MainUser_BottomNav;
 
 import java.util.Arrays;
@@ -51,15 +48,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "ADMIN - " + currentFirebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(MainActivity.this, MainAdmin_BottomNav.class);
                 startActivity(intent);
+                finish();
             }
             else
             {
-                //FirebaseFirestore db = FirebaseFirestore.getInstance();
-                //CollectionReference notebookRef = db.collection(userid);
-                //notebookRef.document("extra").set("collect");
+
                 Intent intent1=new Intent(MainActivity.this, MainUser_BottomNav.class);
                 startActivity(intent1);
-                //finish();
+                finish();
                 Toast.makeText(this, "USER - " + userid, Toast.LENGTH_SHORT).show();
             }
         }
@@ -77,10 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnlogout).setOnClickListener(this);
 
 
-
-
-
-        Button B_Nav=(Button)findViewById(R.id.btn_nav);
+       /* Button B_Nav=(Button)findViewById(R.id.btn_nav);
         Button btnadmin=(Button)findViewById(R.id.admin);
         Button btnuser=(Button)findViewById(R.id.user);
 
@@ -107,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent1=new Intent(MainActivity.this, MainUser_BottomNav.class);
                 startActivity(intent1);
             }
-        });
+        });*/
 
     }
 
@@ -133,21 +126,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(requestCode==RC_SIGN_IN){
             if(resultCode==RESULT_OK){
                 Log.d("AUTH",auth.getCurrentUser().getEmail());
-              /*  FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-                userid=currentFirebaseUser.getEmail();
-                Toast.makeText(this, "User Id" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
-
-                if( userid.equals("venkateshm11799@gmail.com")){
-                    Toast.makeText(this, "User Id" + currentFirebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(MainActivity.this, MainADM.class);
-                    startActivity(intent);
-                }
-                else
-                {
-                    Intent intent1=new Intent(MainActivity.this, MainUSER.class);
-                    startActivity(intent1);
-                    Toast.makeText(this, "User Id......." + userid, Toast.LENGTH_SHORT).show();
-                }*/
 
             }
             else {

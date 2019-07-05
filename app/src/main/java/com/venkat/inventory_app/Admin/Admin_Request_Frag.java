@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.venkat.inventory_app.Admin_AcceptRequest_Dialog;
-import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.Adapters.Admin_Request_Adapter;
 import com.venkat.inventory_app.R;
-import com.venkat.inventory_app.User.Request_Model;
-import com.venkat.inventory_app.User.User_ItemAdapter;
-import com.venkat.inventory_app.User.User_Request_Dialog;
+import com.venkat.inventory_app.Model.Request_Model;
 
 public class Admin_Request_Frag extends Fragment {
 
@@ -52,15 +50,27 @@ public class Admin_Request_Frag extends Fragment {
         req_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         req_recyclerView.setAdapter(adapter);
 
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                 ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+                adapter.deleteItem(viewHolder.getAdapterPosition());
+            }
+        }).attachToRecyclerView(req_recyclerView);
+
         adapter.setOnItemClickListener(new Admin_Request_Adapter.OnItemClickListner() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 //Request_Model request_model = documentSnapshot.toObject(Admin_Request_Adapter.class);
                 Request_Model request_model = documentSnapshot.toObject(Request_Model.class);
-                //id = documentSnapshot.getId();
-               // String uid = user.getUid();
-              //  String docu_id = documentSnapshot.getString("docu_id");
-                //String value=documentSnapshot.getString("nameitem");
+
 
                 Number countavail =(Long) documentSnapshot.get("countavail");
                 String docu_id = (String) documentSnapshot.get("docu_id");
@@ -83,7 +93,7 @@ public class Admin_Request_Frag extends Fragment {
                 newFragment.show(getFragmentManager(), "TAG");
 
 
-                Toast.makeText(getActivity(), "clicked " + nameitem,Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "clicked " + nameitem,Toast.LENGTH_SHORT).show();
 
                 Admin_AcceptRequest_Dialog admin_acceptRequest_dialog = new Admin_AcceptRequest_Dialog();
                 admin_acceptRequest_dialog.show(getFragmentManager(),"accept request dialog");

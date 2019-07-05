@@ -7,68 +7,36 @@
     android:background="@drawable/gradientcolor"
     tools:context=".Common.MainActivity">
 
-    <Button
-        android:id="@+id/admin"
-        android:layout_width="149dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="252dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/curvebtn"
-        android:text="ADMIN"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/user"
-        android:layout_width="153dp"
-        android:layout_height="wrap_content"
+    <TextView
+        android:layout_width="299dp"
+        android:layout_height="94dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="364dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/curvebtn"
-        android:text="USER"
+        android:gravity="center"
+        android:text="INVENTORY APP"
         android:textColor="#ffffff"
+        android:textSize="33sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnlogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="131dp"
+        android:layout_height="55dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="92dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="332dp"
         android:background="@drawable/curvebtn"
-        android:text="LOGOUT"
+        android:text="SIGN IN"
         android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_nav"
-        android:layout_width="219dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/curvebtn"
-        android:text="Bottom Nav Admin"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toTopOf="@+id/admin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnlogout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 

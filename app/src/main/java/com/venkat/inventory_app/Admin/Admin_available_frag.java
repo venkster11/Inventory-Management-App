@@ -1,4 +1,4 @@
-package com.venkat.inventory_app;
+package com.venkat.inventory_app.Admin;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,8 +17,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.venkat.inventory_app.Admin.ExampleDialog;
-import com.venkat.inventory_app.Admin.ItemAdapter;
-import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.Adapters.ItemAdapter;
+import com.venkat.inventory_app.Model.Itemshow;
+import com.venkat.inventory_app.R;
 
 public class Admin_available_frag extends Fragment {
 
@@ -58,7 +59,7 @@ public class Admin_available_frag extends Fragment {
         recyclerView.setAdapter(adapter);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                 ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;

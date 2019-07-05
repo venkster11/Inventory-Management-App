@@ -1,4 +1,4 @@
-package com.venkat.inventory_app.User;
+package com.venkat.inventory_app.Model;
 
 import com.google.firebase.firestore.ServerTimestamp;
 

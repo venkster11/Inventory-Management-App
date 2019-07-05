@@ -1,4 +1,4 @@
-package com.venkat.inventory_app.User;
+package com.venkat.inventory_app.Admin;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,35 +11,32 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.venkat.inventory_app.Adapters.Logs_Adapter;
 import com.venkat.inventory_app.Model.Logs_Model;
 import com.venkat.inventory_app.R;
-import com.venkat.inventory_app.Adapters.User_Logs_Adapter;
 
-public class User_Logs_Frag extends Fragment {
+public class Admin_logs_frag extends Fragment {
 
     FirebaseFirestore db=FirebaseFirestore.getInstance();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String uid = user.getUid();
-    CollectionReference notebookRef=db.collection(uid+" Logs");
-    private User_Logs_Adapter adapter;
+    CollectionReference notebookRef=db.collection("AdminLogs");
+    private Logs_Adapter adapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View RootView = inflater.inflate(R.layout.user_logs_fragment, container, false);
+        View RootView = inflater.inflate(R.layout.admin_logs_frag, container, false);
 
         Query query = notebookRef.orderBy("countitem", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Logs_Model> options = new FirestoreRecyclerOptions.Builder<Logs_Model>()
                 .setQuery(query, Logs_Model.class)
                 .build();
-        adapter = new User_Logs_Adapter(options);
 
-        RecyclerView req_recyclerView = RootView.findViewById(R.id.user_logs_recycler);
+        adapter=new Logs_Adapter(options);
+
+        RecyclerView req_recyclerView = RootView.findViewById(R.id.admin_logs_recycler);
         req_recyclerView.setHasFixedSize(true);
         req_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         req_recyclerView.setAdapter(adapter);

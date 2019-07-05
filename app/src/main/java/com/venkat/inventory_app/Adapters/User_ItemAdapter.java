@@ -1,4 +1,4 @@
-package com.venkat.inventory_app.User;
+package com.venkat.inventory_app.Adapters;
 
 import android.app.Dialog;
 import android.support.annotation.NonNull;
@@ -12,18 +12,13 @@ import android.widget.TextView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.Model.Itemshow;
 import com.venkat.inventory_app.R;
 
 public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_ItemAdapter.UserItemHolder> {
     private OnItemClickListner listner;
 
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
+
     Dialog mydialog;
 
     public User_ItemAdapter(@NonNull FirestoreRecyclerOptions<Itemshow> options) {
@@ -43,14 +38,6 @@ public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_It
         View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_item_layout,viewGroup,false);
         final UserItemHolder userHolder = new UserItemHolder(v);
 
-
-
-    /*    userHolder.rv_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(viewGroup.getContext(),"Text Click"+String.valueOf(userHolder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         return new UserItemHolder(v);
     }

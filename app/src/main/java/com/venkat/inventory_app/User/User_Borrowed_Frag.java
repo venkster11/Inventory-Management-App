@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -24,11 +22,9 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.venkat.inventory_app.Borrowed_Model;
-import com.venkat.inventory_app.Common.Itemshow;
+import com.venkat.inventory_app.Model.Borrowed_Model;
 import com.venkat.inventory_app.R;
-import com.venkat.inventory_app.User_Borrowed_Adapter;
-import com.venkat.inventory_app.User_Return_Dialog;
+import com.venkat.inventory_app.Adapters.User_Borrowed_Adapter;
 
 public class User_Borrowed_Frag extends Fragment {
 
@@ -81,39 +77,11 @@ public class User_Borrowed_Frag extends Fragment {
                         if (documentSnapshot.exists()) {
                             realcount1 = (Long) documentSnapshot.get("count");
                             realcount = realcount1.intValue();
-                            //String title = documentSnapshot.getString(KEY_TITLE);
-                            // String description = documentSnapshot.getString(KEY_DESCRIPTION);
 
-                            //textViewData.setText("Title: " + title + "\n" + "Description: " + description);
                         }
 
                     }
                 });
-                /*realcountdb.get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if (documentSnapshot.exists()) {
-                                    title = documentSnapshot.getString("user_name");
-                                  //  String description = documentSnapshot.getString(KEY_DESCRIPTION);
-
-                                    realcount1 = (Long) documentSnapshot.get("count");
-                                    //realcount = realcount1.intValue();
-                                    //Map<String, Object> note = documentSnapshot.getData();
-
-                                    //textViewData.setText("Title: " + title + "\n" + "Description: " + description);
-                                } else {
-                                    Toast.makeText(getActivity(), "Document does not exist", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
-                                //Log.d(TAG, e.toString());
-                            }
-                        });*/
 
 
 
