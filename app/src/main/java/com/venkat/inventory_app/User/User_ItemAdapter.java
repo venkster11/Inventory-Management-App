@@ -41,7 +41,7 @@ public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_It
     @Override
     public UserItemHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, int i) {
         View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_item_layout,viewGroup,false);
-        final UserItemHolder userHolder=new UserItemHolder(v);
+        final UserItemHolder userHolder = new UserItemHolder(v);
 
 
 

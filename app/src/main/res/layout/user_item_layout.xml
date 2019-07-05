@@ -7,7 +7,7 @@
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
     android:id="@+id/rv_user_item_layout"
-    app:cardBackgroundColor="#616161">
+    app:cardBackgroundColor="#9E9E9E">
 
     <RelativeLayout
         android:layout_width="match_parent"
