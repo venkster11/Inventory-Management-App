@@ -35,11 +35,16 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+//<<<<<<< Updated upstream
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_user, null);
 
         //User_Available_Frag activity = new User_Available_Frag();//getting i
        /* final String docu_id=activity.Docu_id();
+=======
+        User_Available_Frag activity;//getting i
+        final String docu_id=activity.Docu_id();
+>>>>>>> Stashed changes
         final String nameitem = activity.getMyData();
        // final Number countavail1=activity.countavail();
         //final int countavail=countavail1.intValue();

@@ -12,14 +12,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:id="@+id/admin_request_layout">
 
         <TextView
             android:id="@+id/item_name_rq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/countx"
+            android:layout_toStartOf="@id/admin_request_layout"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="Item Name"
@@ -35,59 +36,53 @@
             android:textColor="@color/lightdark"/>
 
         <TextView
+            android:id="@+id/textavail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/user_name_rq"
-            android:id="@+id/textavail"
+            android:layout_marginTop="7dp"
             android:text="Available"
-            android:textColor="@color/lightdark"/>
+            android:textColor="@color/lightdark" />
 
         <TextView
             android:id="@+id/countavailable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/user_name_rq"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/textavail"
-            android:text="1" />
+            android:text="1"
+            android:textSize="17sp" />
+
         <TextView
             android:id="@+id/textrequested"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textavail"
+            android:layout_marginTop="6dp"
             android:text="Requested"
-            android:textColor="@color/lightdark"/>
+            android:textColor="@color/lightdark" />
 
         <TextView
             android:id="@+id/countrequested"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/countavailable"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="1dp"
             android:layout_toRightOf="@+id/textrequested"
-            android:text="1" />
+            android:text="1"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/date_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textrequested"
-            android:text="date and time"
-            android:textColor="@color/lightdark"/>
-
-        <TextView
-            android:id="@+id/requested_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/user_name_rq"
-            android:layout_marginLeft="159dp"
-            android:layout_marginTop="1dp"
-            android:layout_toRightOf="@+id/textavail"
-
-            android:text="REQUESTED"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="-93dp"
+            android:text="date/time"
             android:textColor="@color/lightdark" />
 
     </RelativeLayout>
