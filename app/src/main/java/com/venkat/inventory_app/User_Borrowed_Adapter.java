@@ -9,8 +9,13 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.venkat.inventory_app.Admin.Admin_Request_Adapter;
 
 public class User_Borrowed_Adapter extends FirestoreRecyclerAdapter<Borrowed_Model, User_Borrowed_Adapter.BorrowedHolder> {
+
+
+    private OnItemClickListner listner;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -46,6 +51,25 @@ public class User_Borrowed_Adapter extends FirestoreRecyclerAdapter<Borrowed_Mod
             super(itemView);
             borrowed_itemname=itemView.findViewById(R.id.borrowed_item_name);
             borrowed_count=itemView.findViewById(R.id.borrowed_count);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(position!=RecyclerView.NO_POSITION && listner!=null){
+                        listner.onItemClick(getSnapshots().getSnapshot(position),position);
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListner{
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
+
+    }
+
+    public void setOnItemClickListener(OnItemClickListner listener){
+        this.listner=listener;
     }
 }

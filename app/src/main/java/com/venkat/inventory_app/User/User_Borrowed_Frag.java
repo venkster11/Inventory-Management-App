@@ -3,23 +3,32 @@ package com.venkat.inventory_app.User;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.venkat.inventory_app.Borrowed_Model;
 import com.venkat.inventory_app.Common.Itemshow;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.User_Borrowed_Adapter;
+import com.venkat.inventory_app.User_Return_Dialog;
 
 public class User_Borrowed_Frag extends Fragment {
 
@@ -28,6 +37,9 @@ public class User_Borrowed_Frag extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference notebookRef = db.collection(uid);
     private User_Borrowed_Adapter adapter;
+    public Number realcount1=0;
+    public int realcount=0;
+    private String title;
 
     @Nullable
     @Override
@@ -45,6 +57,85 @@ public class User_Borrowed_Frag extends Fragment {
         recyclerViewu.setHasFixedSize(true);
         recyclerViewu.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewu.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new User_Borrowed_Adapter.OnItemClickListner() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Borrowed_Model note = documentSnapshot.toObject(Borrowed_Model.class);
+                String user_docu_id = documentSnapshot.getId();
+                String path = documentSnapshot.getReference().getPath();
+                String itmname = documentSnapshot.getString("item_name");
+                String docuid=documentSnapshot.getString("docuID");
+                Number mycount= (Long) documentSnapshot.get("mycount");
+
+
+                DocumentReference realcountdb = db.collection("Notebook").document(docuid);
+                realcountdb.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Toast.makeText(getActivity(), "Error while loading!", Toast.LENGTH_SHORT).show();
+                            //Log.d(TAG, e.toString());
+                            return;
+                        }
+                        if (documentSnapshot.exists()) {
+                            realcount1 = (Long) documentSnapshot.get("count");
+                            realcount = realcount1.intValue();
+                            //String title = documentSnapshot.getString(KEY_TITLE);
+                            // String description = documentSnapshot.getString(KEY_DESCRIPTION);
+
+                            //textViewData.setText("Title: " + title + "\n" + "Description: " + description);
+                        }
+
+                    }
+                });
+                /*realcountdb.get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    title = documentSnapshot.getString("user_name");
+                                  //  String description = documentSnapshot.getString(KEY_DESCRIPTION);
+
+                                    realcount1 = (Long) documentSnapshot.get("count");
+                                    //realcount = realcount1.intValue();
+                                    //Map<String, Object> note = documentSnapshot.getData();
+
+                                    //textViewData.setText("Title: " + title + "\n" + "Description: " + description);
+                                } else {
+                                    Toast.makeText(getActivity(), "Document does not exist", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
+                                //Log.d(TAG, e.toString());
+                            }
+                        });*/
+
+
+
+                Bundle args = new Bundle();
+                args.putString("key", itmname);
+                args.putString("docuid",docuid);
+                args.putLong("mycount", (Long) mycount);
+               args.putLong("realcount",  realcount);
+               args.putString("userdoc",user_docu_id);
+               args.putString("uid",uid);
+
+                DialogFragment newFragment = new User_Return_Dialog();
+                newFragment.setArguments(args);
+                newFragment.show(getFragmentManager(), "TAG");
+
+                Toast.makeText(getActivity(),
+                        "do " + title + " actual count " + realcount, Toast.LENGTH_SHORT).show();
+
+                User_Return_Dialog user_return_dialog = new User_Return_Dialog();
+                user_return_dialog.show(getFragmentManager(), "return dialog");
+            }
+        });
 
         return rootView;
     }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="34dp">
+
+    <TextView
+        android:id="@+id/return_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal"
+
+        android:textSize="30sp" />
+    <EditText
+        android:id="@+id/return_count"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/return_item_name"
+        android:textColorHint="#ce93d8"
+        android:textColor="#000000"
+        android:hint="Count"
+        android:inputType="number" />
+
+
+</RelativeLayout>
