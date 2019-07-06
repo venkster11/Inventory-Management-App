@@ -8,14 +8,28 @@
     tools:context=".Common.MainActivity">
 
 
+    <ImageView
+        android:layout_width="279dp"
+        android:layout_height="265dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_safe_box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22" />
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="299dp"
         android:layout_height="94dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="92dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:text="INVENTORY APP"
+        android:text=""
         android:textColor="#ffffff"
         android:textSize="33sp"
         android:textStyle="bold"
@@ -29,13 +43,12 @@
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="332dp"
+        android:layout_marginBottom="136dp"
         android:background="@drawable/curvebtn"
         android:text="SIGN IN"
-        android:textColor="#ffffff"
+        android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
 

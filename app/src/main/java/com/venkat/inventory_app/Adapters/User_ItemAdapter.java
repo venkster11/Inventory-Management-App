@@ -21,6 +21,8 @@ public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_It
 
     Dialog mydialog;
 
+
+
     public User_ItemAdapter(@NonNull FirestoreRecyclerOptions<Itemshow> options) {
         super(options);
     }

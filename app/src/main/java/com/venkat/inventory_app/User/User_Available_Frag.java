@@ -48,6 +48,12 @@ public class User_Available_Frag extends Fragment {
                 .setQuery(query, Itemshow.class)
                 .build();
 
+//        FirestoreRecyclerOptions<Itemshow> optionsFull = new FirestoreRecyclerOptions.Builder<Itemshow>()
+//                .setQuery(query, Itemshow.class)
+//                .build();
+
+
+
         adapter = new User_ItemAdapter(options);
 
         RecyclerView recyclerViewu = rootView.findViewById(R.id.Recyviewu);

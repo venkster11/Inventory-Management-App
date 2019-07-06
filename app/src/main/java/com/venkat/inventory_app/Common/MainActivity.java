@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
             userid=currentFirebaseUser.getEmail();
 
-            if( userid.equals("venkateshm11799@gmail.com")){
+            if( userid.equals("venkateshm11799@gmail.com") || userid.equals("adityap301@gmail.com")) {
                 Toast.makeText(this, "ADMIN - " + currentFirebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(MainActivity.this, MainAdmin_BottomNav.class);
                 startActivity(intent);
