@@ -80,6 +80,8 @@ public class Admin_Request_Frag extends Fragment {
                 String Request_docu_id = documentSnapshot.getId();
                 //Number RealAvailCount = (Long)notebookRef.document(docu_id)
 
+
+
                 Bundle args = new Bundle();
                 args.putLong("countavail", (Long) countavail);
                 args.putString("docu_id",docu_id);

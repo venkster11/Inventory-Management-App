@@ -21,7 +21,7 @@ import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.User.MainUser_BottomNav;
 
 import java.util.Arrays;
-
+// development branch added
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth auth;
