@@ -9,11 +9,12 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.venkat.inventory_app.Model.Itemshow;
 import com.venkat.inventory_app.R;
 
 public class ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, ItemAdapter.ItemHolder> {
-
+    private OnItemClickListner listner;
 
     public ItemAdapter(@NonNull FirestoreRecyclerOptions<Itemshow> options) {
         super(options);
@@ -32,7 +33,7 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, ItemAdapter.
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_layout,viewGroup,false);
         return new ItemHolder(v);
-    }
+}
 
     public void deleteItem(int position) {
         getSnapshots().getSnapshot(position).getReference().delete();
@@ -49,6 +50,23 @@ public class ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, ItemAdapter.
             textViewItemname=itemView.findViewById(R.id.item_name);
             textViewusername=itemView.findViewById(R.id.user_name);
             textViewcount=itemView.findViewById(R.id.count);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position=getAdapterPosition();
+                    if(position!=RecyclerView.NO_POSITION && listner!=null){
+                        listner.onItemClick(getSnapshots().getSnapshot(position),position);
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListner{
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
+    }
+    public void setOnItemClickListener(OnItemClickListner listener){
+        this.listner=listener;
     }
 }

@@ -11,9 +11,12 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.venkat.inventory_app.Admin.ExampleDialog;
@@ -34,6 +37,7 @@ public class Admin_available_frag extends Fragment {
 
         FirebaseFirestore db=FirebaseFirestore.getInstance();
         CollectionReference notebookRef=db.collection("Notebook");
+        final DocumentReference clickRef = db.document("Onclickrv/click");
 
         FloatingActionButton addfloat1= RootView.findViewById(R.id.floatadd1);
         addfloat1.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +76,21 @@ public class Admin_available_frag extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
+
+        adapter.setOnItemClickListener(new ItemAdapter.OnItemClickListner() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Itemshow itemshow_model = documentSnapshot.toObject(Itemshow.class);
+
+                String docu_id = (String) documentSnapshot.getId();
+                clickRef.update("docID", docu_id);
+                Toast.makeText(getActivity(), "clicked " + docu_id,Toast.LENGTH_SHORT).show();
+
+                Admin_CountUpdate_Dialog admin_countUpdate_dialog = new Admin_CountUpdate_Dialog();
+                admin_countUpdate_dialog.show(getFragmentManager(), "count update dialog");
+
+            }
+        });
 
         return RootView;
     }
