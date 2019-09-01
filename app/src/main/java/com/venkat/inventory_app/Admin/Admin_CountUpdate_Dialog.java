@@ -80,24 +80,34 @@ public class Admin_CountUpdate_Dialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        clickRef.get()
-                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        String didd = documentSnapshot.getString("docID");
-                                        final DocumentReference nbref = db.collection("Notebook").document(didd);
-                                        int updtcount=Integer.parseInt(update_count.getText().toString());
-                                        //int test = 11;
-                                        nbref.update("count",updtcount);
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
+                        String upd = update_count.getText().toString();
+                        if(upd!="") {
+                            clickRef.get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            String didd = documentSnapshot.getString("docID");
+                                            final DocumentReference nbref = db.collection("Notebook").document(didd);
 
-                                    }
-                                });
+                                            try {
+                                                int updtcount = Integer.parseInt(update_count.getText().toString());
+                                                //int test = 11;
 
+                                                nbref.update("count", updtcount);
+                                            }catch (NumberFormatException ex){
+
+                                            }
+                                            
+
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                        }
+                                    });
+                        }
 
                     }
                 });

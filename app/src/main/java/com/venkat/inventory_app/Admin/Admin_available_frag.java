@@ -62,7 +62,8 @@ public class Admin_available_frag extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+        // swipe to delete
+       /* new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                  ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
@@ -74,7 +75,7 @@ public class Admin_available_frag extends Fragment {
 
                 adapter.deleteItem(viewHolder.getAdapterPosition());
             }
-        }).attachToRecyclerView(recyclerView);
+        }).attachToRecyclerView(recyclerView);*/
 
 
         adapter.setOnItemClickListener(new ItemAdapter.OnItemClickListner() {
