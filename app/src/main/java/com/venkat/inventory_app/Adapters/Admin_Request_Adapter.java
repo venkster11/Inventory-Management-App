@@ -9,7 +9,11 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.Model.Request_Model;
 
@@ -17,15 +21,36 @@ public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Mode
 
     private OnItemClickListner listner;
 
+
     public Admin_Request_Adapter(@NonNull FirestoreRecyclerOptions<Request_Model> options) {
         super(options);
     }
 
+
     @Override
-    protected void onBindViewHolder(@NonNull RequestHolder holder, int position, @NonNull Request_Model model) {
+    protected void onBindViewHolder(@NonNull final RequestHolder holder, int position, @NonNull final Request_Model model) {
         holder.ItemName.setText(model.getNameitem());
         holder.UserName.setText(model.getUsername());
-        holder.AvailableCount.setText(String.valueOf(model.getCountavail()));
+
+        String did = model.getDocu_id();
+        final FirebaseFirestore db=FirebaseFirestore.getInstance();
+        final DocumentReference nbref = db.collection("Notebook").document(did);
+        nbref.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Number countavail1 = (Long) documentSnapshot.get("count");
+                        int countavail=countavail1.intValue();
+                        holder.AvailableCount.setText(String.valueOf(countavail));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+        //holder.AvailableCount.setText(String.valueOf(model.getCountavail()));
         holder.RequestedCount.setText(String.valueOf(model.getReqcount()));
         //holder.DatenTime.setText((CharSequence) model.getTimestamp());
 

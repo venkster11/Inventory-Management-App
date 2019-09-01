@@ -10,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -27,12 +29,12 @@ public class User_Available_Frag extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference notebookRef = db.collection("Notebook");
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String uid = user.getUid();
-    String id;
+   // String uid = user.getUid();
+   /* String id;
     String name;
     String value;
     String docu_id;
-    Number item_avail;
+    Number item_avail;*/
 
     User_ItemAdapter adapter;
 
@@ -42,6 +44,9 @@ public class User_Available_Frag extends Fragment {
 
         View rootView = inflater.inflate(R.layout.user_available_fragment, container, false);
 
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String uid = user.getUid();
+        final DocumentReference clickRef = db.document("Onclickrv/click");
         Query query = notebookRef.orderBy("item_name", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Itemshow> options = new FirestoreRecyclerOptions.Builder<Itemshow>()
@@ -66,7 +71,7 @@ public class User_Available_Frag extends Fragment {
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Itemshow itemshow = documentSnapshot.toObject(Itemshow.class);
 
-                value = documentSnapshot.getString("item_name");//name of the item
+             /*   value = documentSnapshot.getString("item_name");//name of the item
                 docu_id = documentSnapshot.getId();//docu id
                 item_avail = (Long) documentSnapshot.get("count");// count of item
                 name = user.getDisplayName();// username
@@ -77,11 +82,19 @@ public class User_Available_Frag extends Fragment {
                 args.putString("docu_id",docu_id);
                 args.putLong("item_avail", (Long) item_avail);
                 args.putString("name",name);
-                args.putString("uid",uid);
+                args.putString("uid",uid);*/
 
-                DialogFragment newFragment = new User_Request_Dialog();
-                newFragment.setArguments(args);
-                newFragment.show(getFragmentManager(), "TAG");
+                String docu_id = (String) documentSnapshot.getId();
+                String name = user.getDisplayName();
+                String uid = user.getUid();
+                clickRef.update("docID", docu_id);
+                clickRef.update("uid", uid);
+                clickRef.update("name", name);
+                Toast.makeText(getActivity(), "clicked " + docu_id,Toast.LENGTH_SHORT).show();
+
+               // DialogFragment newFragment = new User_Request_Dialog();
+               // newFragment.setArguments(args);
+               // newFragment.show(getFragmentManager(), "TAG");
 
 
                 User_Request_Dialog user_request_dialog = new User_Request_Dialog();

@@ -105,6 +105,7 @@ public class Admin_Request_Frag extends Fragment {
 
     public void onStart() {
         super.onStart();
+
         adapter.startListening();
     }
 
