@@ -57,6 +57,22 @@ public class Admin_CountUpdate_Dialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        clickRef.get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        String didd = documentSnapshot.getString("docID");
+                                        final DocumentReference nbref = db.collection("Notebook").document(didd);
+                                        nbref.delete();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
+
                         //Toast.makeText(getActivity(), "clicked " + did1,Toast.LENGTH_SHORT).show();
                     }
                 })
