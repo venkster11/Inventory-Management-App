@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,6 +39,8 @@ public class Admin_available_frag extends Fragment {
 
         FirebaseFirestore db=FirebaseFirestore.getInstance();
         CollectionReference notebookRef=db.collection("Notebook");
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
         final DocumentReference clickRef = db.document("Onclickrv/click");
 
         FloatingActionButton addfloat1= RootView.findViewById(R.id.floatadd1);
@@ -84,7 +88,11 @@ public class Admin_available_frag extends Fragment {
                 Itemshow itemshow_model = documentSnapshot.toObject(Itemshow.class);
 
                 String docu_id = (String) documentSnapshot.getId();
+                String name = user.getDisplayName();
+                String uid = user.getUid();
                 clickRef.update("docID", docu_id);
+                clickRef.update("uid", uid);
+                clickRef.update("name", name);
                 Toast.makeText(getActivity(), "clicked " + docu_id,Toast.LENGTH_SHORT).show();
 
                 Admin_CountUpdate_Dialog admin_countUpdate_dialog = new Admin_CountUpdate_Dialog();

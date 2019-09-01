@@ -21,14 +21,14 @@ import com.venkat.inventory_app.R;
 public class Admin_logs_frag extends Fragment {
 
     FirebaseFirestore db=FirebaseFirestore.getInstance();
-    CollectionReference notebookRef=db.collection("AdminLogs");
+    CollectionReference notebookRef=db.collection("AdminLogs1");
     private Logs_Adapter adapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.admin_logs_frag, container, false);
 
-        Query query = notebookRef.orderBy("countitem", Query.Direction.ASCENDING);
+        Query query = notebookRef.orderBy("timestamp", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Logs_Model> options = new FirestoreRecyclerOptions.Builder<Logs_Model>()
                 .setQuery(query, Logs_Model.class)
