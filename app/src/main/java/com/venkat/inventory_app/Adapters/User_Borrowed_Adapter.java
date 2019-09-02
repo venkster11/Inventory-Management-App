@@ -43,6 +43,10 @@ public class User_Borrowed_Adapter extends FirestoreRecyclerAdapter<Borrowed_Mod
 
     }
 
+    public void deleteItem(int position) {
+        getSnapshots().getSnapshot(position).getReference().delete();
+    }
+
     class BorrowedHolder extends RecyclerView.ViewHolder{
         TextView borrowed_itemname;
         TextView borrowed_docuid;

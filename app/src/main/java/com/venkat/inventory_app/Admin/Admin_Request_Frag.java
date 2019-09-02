@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -100,7 +101,16 @@ public class Admin_Request_Frag extends Fragment {
                 String docu_id = (String) documentSnapshot.getId();
                 String name = user.getDisplayName();
                 String uid = user.getUid();
-                clickRef.update("docID", docu_id);
+                DocumentReference reqref = db.collection("Requests").document(docu_id);
+                reqref.get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                String nbdid = documentSnapshot.getString("docu_id");
+                                clickRef.update("nbdocID", nbdid);
+                            }
+                        });
+                clickRef.update("reqdocID", docu_id);
                 clickRef.update("uid", uid);
                 clickRef.update("name", name);
 

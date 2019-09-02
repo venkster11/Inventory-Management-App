@@ -79,21 +79,26 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            final String docu_id = documentSnapshot.getString("docID");
+                                            final String docu_id1 = documentSnapshot.getString("reqdocID");
                                             final String username=documentSnapshot.getString("name");
                                             final String uid=documentSnapshot.getString("uid");
+                                            final String nbid=documentSnapshot.getString("nbdocID");
                                           //  Number countreq1 = (Long) documentSnapshot.get("reqcount");
                                           //  final int reqcount = countreq1.intValue();
-                                            final DocumentReference nbref = db.collection("Requests").document(docu_id);
-                                            nbref.get()
+                                            final DocumentReference rqref = db.collection("Requests").document(docu_id1);
+                                            rqref.get()
                                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                         @Override
                                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                            final String docu_id_nb = documentSnapshot.getString("docu_id");
+                                                           // final String docu_id_nb = documentSnapshot.getString("nbdocID");
                                                             final String uid1=documentSnapshot.getString("uid");
+                                                            final DocumentReference borrowed=db.collection(uid1).document();
+                                                            final Map<String, Object> note = new HashMap<>();
+                                                            note.put("docuID",nbid);
+
                                                             Number countreq1 = (Long) documentSnapshot.get("reqcount");
                                                             final int reqcount = countreq1.intValue();
-                                                            final DocumentReference nbref1 = db.collection("Notebook").document(docu_id_nb);
+                                                            final DocumentReference nbref1 = db.collection("Notebook").document(nbid);
                                                             nbref1.get()
                                                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                                         @Override
@@ -104,12 +109,12 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                                             final int remaining_item = countavail-reqcount;
                                                                             if (reqcount<=countavail){
                                                                                 nbref1.update("count",remaining_item);
-                                                                                DocumentReference borrowed=db.collection(uid1).document();
 
-                                                                                Map<String, Object> note = new HashMap<>();
+
+
                                                                                 note.put("item_name", nameitem);
                                                                                 note.put("mycount", reqcount);
-                                                                                note.put("docuID",docu_id);
+
 
                                                                                 borrowed.set(note)
                                                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -137,7 +142,7 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                                                 note1.put("uid",uid);
                                                                                 note1.put("timestamp", FieldValue.serverTimestamp());
                                                                                 adminlogs.set(note1);
-                                                                                nbref.delete();
+                                                                                rqref.delete();
                                                                             }
                                                                         }
                                                                     })

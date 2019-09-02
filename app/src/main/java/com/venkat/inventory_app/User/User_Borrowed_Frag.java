@@ -7,12 +7,15 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -28,20 +31,27 @@ import com.venkat.inventory_app.Adapters.User_Borrowed_Adapter;
 
 public class User_Borrowed_Frag extends Fragment {
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String uid = user.getUid();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference notebookRef = db.collection(uid);
     private User_Borrowed_Adapter adapter;
-    public Number realcount1=0;
+    private String TAG="tags";
+  /*  public Number realcount1=0;
     public int realcount=0;
-    private String title;
+    private String title;*/
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.user_borrowed_fragment, container, false);
 
+
+        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseFirestore db=FirebaseFirestore.getInstance();
+        CollectionReference notebookRef1=db.collection("Notebook");
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        final DocumentReference clickRef = db.document("Onclickrv/click");
+        // String uid = user.getUid();
+        //private FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference notebookRef = db.collection(uid);
         Query query = notebookRef.orderBy("item_name", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Borrowed_Model> options = new FirestoreRecyclerOptions.Builder<Borrowed_Model>()
@@ -58,7 +68,7 @@ public class User_Borrowed_Frag extends Fragment {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Borrowed_Model note = documentSnapshot.toObject(Borrowed_Model.class);
-                String user_docu_id = documentSnapshot.getId();
+              /*  String user_docu_id = documentSnapshot.getId();
                 String path = documentSnapshot.getReference().getPath();
                 String itmname = documentSnapshot.getString("item_name");
                 String docuid=documentSnapshot.getString("docuID");
@@ -83,8 +93,6 @@ public class User_Borrowed_Frag extends Fragment {
                     }
                 });
 
-
-
                 Bundle args = new Bundle();
                 args.putString("key", itmname);
                 args.putString("docuid",docuid);
@@ -95,10 +103,54 @@ public class User_Borrowed_Frag extends Fragment {
 
                 DialogFragment newFragment = new User_Return_Dialog();
                 newFragment.setArguments(args);
-                newFragment.show(getFragmentManager(), "TAG");
+                newFragment.show(getFragmentManager(), "TAG");*/
 
-                Toast.makeText(getActivity(),
-                        "do " + title + " actual count " + realcount, Toast.LENGTH_SHORT).show();
+                String docu_id = documentSnapshot.getId();
+                String name = user.getDisplayName();
+                String uid = user.getUid();
+                clickRef.update("UsrdocID", docu_id);
+                clickRef.update("uid", uid);
+                clickRef.update("name", name);
+
+                final DocumentReference userref = db.collection(uid).document(docu_id);
+                userref.get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Number usrcount1 = (Long) documentSnapshot.get("mycount");
+                                final int usrcount = usrcount1.intValue();
+                                clickRef.update("usercount",usrcount);
+                                String nbdoc =  documentSnapshot.getString("docuID");
+                                clickRef.update("docID",nbdoc);
+
+
+                                Log.i(TAG,nbdoc);
+                                //final DocumentReference admref = db.document(nbdoc);
+                               /* admref.get()
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                                Number admcount1 = (Long) documentSnapshot.get("count");
+                                                final int admcount = admcount1.intValue();
+                                                clickRef.update("admcount",admcount);
+                                                //final String itmname = documentSnapshot.getString("item_name");
+                                               // clickRef.update("itemname",itmname);
+                                            }
+                                        });*/
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+
+
+
+               /* Toast.makeText(getActivity(),
+                        "do " + name + " ab docid " , Toast.LENGTH_SHORT).show();*/
 
                 User_Return_Dialog user_return_dialog = new User_Return_Dialog();
                 user_return_dialog.show(getFragmentManager(), "return dialog");
