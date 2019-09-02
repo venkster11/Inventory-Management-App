@@ -93,7 +93,8 @@ public class Admin_CountUpdate_Dialog extends AppCompatDialogFragment {
                                                         note1.put("uid",uid);
                                                         note1.put("timestamp", FieldValue.serverTimestamp());
                                                         adminlogs.set(note1);
-                                                        nbref.delete();
+                                                        nbref.update("count",0);
+                                                        //nbref.delete();
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {

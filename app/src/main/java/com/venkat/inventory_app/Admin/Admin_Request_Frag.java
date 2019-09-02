@@ -17,6 +17,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -37,6 +38,9 @@ public class Admin_Request_Frag extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.request_recycler, null);
 
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String uid = user.getUid();
+        final DocumentReference clickRef = db.document("Onclickrv/click");
         Query query = notebookRef.orderBy("nameitem", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Request_Model> options = new FirestoreRecyclerOptions.Builder<Request_Model>()
@@ -72,7 +76,7 @@ public class Admin_Request_Frag extends Fragment {
                 Request_Model request_model = documentSnapshot.toObject(Request_Model.class);
 
 
-                Number countavail =(Long) documentSnapshot.get("countavail");
+             /*   Number countavail =(Long) documentSnapshot.get("countavail");
                 String docu_id = (String) documentSnapshot.get("docu_id");
                 String nameitem = (String) documentSnapshot.get("nameitem");
                 Number reqcount = (Long) documentSnapshot.get("reqcount");
@@ -88,9 +92,17 @@ public class Admin_Request_Frag extends Fragment {
                 args.putString("uid", uid);
                 args.putString("Request_docu_id",Request_docu_id);
 
+
                 DialogFragment newFragment = new Admin_AcceptRequest_Dialog();
                 newFragment.setArguments(args);
-                newFragment.show(getFragmentManager(), "TAG");
+                newFragment.show(getFragmentManager(), "TAG");*/
+
+                String docu_id = (String) documentSnapshot.getId();
+                String name = user.getDisplayName();
+                String uid = user.getUid();
+                clickRef.update("docID", docu_id);
+                clickRef.update("uid", uid);
+                clickRef.update("name", name);
 
 
                // Toast.makeText(getActivity(), "clicked " + nameitem,Toast.LENGTH_SHORT).show();

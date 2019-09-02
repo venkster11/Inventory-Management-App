@@ -20,7 +20,7 @@ public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_It
 
 
     Dialog mydialog;
-
+    private int countavail;
 
 
     public User_ItemAdapter(@NonNull FirestoreRecyclerOptions<Itemshow> options) {
@@ -29,8 +29,16 @@ public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_It
 
     @Override
     protected void onBindViewHolder(@NonNull UserItemHolder holder, int position, @NonNull Itemshow model) {
+
+        Number countavail1 = model.getCount();
+        countavail=countavail1.intValue();
+        if(countavail!=0){
         holder.textViewItemname.setText(model.getItem_name());
         holder.textViewcount.setText(String.valueOf(model.getCount()));
+        }
+        else {
+            holder.rv_layout.setLayoutParams(holder.params);
+        }
 
     }
 
@@ -47,13 +55,14 @@ public class User_ItemAdapter extends FirestoreRecyclerAdapter<Itemshow, User_It
 
 
     class UserItemHolder extends RecyclerView.ViewHolder{
-
+        public CardView.LayoutParams params;
         CardView rv_layout;
         TextView textViewItemname;
         TextView textViewcount;
 
         public UserItemHolder(@NonNull View itemView) {
             super(itemView);
+            params = new CardView.LayoutParams(0,0);
             rv_layout=itemView.findViewById(R.id.rv_user_item_layout);
             textViewItemname=itemView.findViewById(R.id.item_nameu);
             textViewcount=itemView.findViewById(R.id.countu);
