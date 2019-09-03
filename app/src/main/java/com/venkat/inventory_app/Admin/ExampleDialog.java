@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.venkat.inventory_app.Model.Itemshow;
 import com.venkat.inventory_app.R;
@@ -70,6 +72,12 @@ public class ExampleDialog extends AppCompatDialogFragment {
 
     private void saveitem(){
 
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        try {
+
+
         String item_name=additem_name.getText().toString();
        // String user_name=adduser_name.getText().toString();
         int count=Integer.parseInt(addcount.getText().toString());
@@ -80,15 +88,20 @@ public class ExampleDialog extends AppCompatDialogFragment {
                 .collection("Notebook");
         notebookRef.add(new Itemshow(item_name, user_name, count));
 
-        DocumentReference adminlogs = db.collection("AdminLogs").document();
+        DocumentReference adminlogs = db.collection("AdminLogs1").document();
         Map<String, Object> note = new HashMap<>();
         note.put("item_name", item_name);
         note.put("countitem", count);
         note.put("username","Admin "+user_name);
         note.put("status","Item Added");
 
-        adminlogs.set(note);
+        note.put("uid",uid);
+        note.put("timestamp", FieldValue.serverTimestamp());
 
+        adminlogs.set(note);
+        }catch (NumberFormatException ex){
+            Toast.makeText(getActivity(),"Mention the item details",Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

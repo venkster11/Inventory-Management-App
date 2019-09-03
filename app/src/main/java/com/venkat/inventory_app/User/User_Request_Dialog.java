@@ -85,7 +85,10 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                 });
 
 
+
+
             //item_name_dialog.setText(nameitem);
+
 
             builder.setView(view)
                     .setTitle("Component Request")
@@ -98,9 +101,13 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                     .setPositiveButton("Request", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                           final int reqcount=Integer.parseInt(request_count.getText().toString());
-                            final FirebaseFirestore db=FirebaseFirestore.getInstance();
-                            final DocumentReference clickRef = db.document("Onclickrv/click");
+                            try {
+
+                                final int reqcount = Integer.parseInt(request_count.getText().toString());
+                                final FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                final DocumentReference clickRef = db.document("Onclickrv/click");
+
+
                             clickRef.get()
                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
@@ -118,51 +125,65 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                                                             int countavail=countavail1.intValue();
 
                                                             //int reqcount=Integer.parseInt(request_count.getText().toString());
-                                                            if(reqcount <= countavail)
-                                                            {
-                                                                Request_Model request_model = new Request_Model(docu_id, nameitem, username, uid, countavail, reqcount, null);
-                                                                //Request_Model request_model=new Request_Model(nameitem,username,countavail,reqcount);
-                                                                db.collection("Requests").document().set(request_model)
-                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                            @Override
-                                                                            public void onSuccess(Void aVoid) {
 
-                                                                                //Toast.makeText(getContext(), "Request Sent", Toast.LENGTH_SHORT).show();
-                                                                            }
-                                                                        })
-                                                                        .addOnFailureListener(new OnFailureListener() {
-                                                                            @Override
-                                                                            public void onFailure(@NonNull Exception e) {
 
-                                                                                //Toast.makeText(getContext(), "Request Failed", Toast.LENGTH_SHORT).show();
-                                                                            }
-                                                                        });
 
-                                                               /* DocumentReference userlogs = db.collection(uid+" Logs").document();
+                                                                if (reqcount <= countavail) {
+                                                                    //try {
+                                                                    Request_Model request_model = new Request_Model(docu_id, nameitem, username, uid, countavail, reqcount, null);
+                                                                    //Request_Model request_model=new Request_Model(nameitem,username,countavail,reqcount);
+                                                                    db.collection("Requests").document().set(request_model)
+                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                @Override
+                                                                                public void onSuccess(Void aVoid) {
+
+                                                                                    //Toast.makeText(getContext(), "Request Sent", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            })
+                                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+
+                                                                                    //Toast.makeText(getContext(), "Request Failed", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            });
+
+                                                                DocumentReference userlogs = db.collection("Users").document("Items").collection("Logs "+uid).document();
                                                                 Map<String, Object> note1 = new HashMap<>();
                                                                 note1.put("item_name", nameitem);
                                                                 note1.put("countitem", reqcount);
                                                                 note1.put("username",username);
                                                                 note1.put("status","Request Sent");
-                                                                userlogs.set(note1);*/
 
-                                                                DocumentReference adminlogs = db.collection("AdminLogs1").document();
-                                                                Map<String, Object> note2 = new HashMap<>();
-                                                                note2.put("item_name", nameitem);
-                                                                note2.put("countitem", reqcount);
-                                                                note2.put("username","User "+username);
-                                                                note2.put("status","Request Received");
+                                                                note1.put("uid", uid);
+                                                                note1.put("timestamp", FieldValue.serverTimestamp());
+                                                                userlogs.set(note1);
 
-                                                                note2.put("uid",uid);
-                                                                note2.put("timestamp", FieldValue.serverTimestamp());
-                                                                adminlogs.set(note2);
+                                                                    DocumentReference adminlogs = db.collection("AdminLogs1").document();
+                                                                    Map<String, Object> note2 = new HashMap<>();
+                                                                    note2.put("item_name", nameitem);
+                                                                    note2.put("countitem", reqcount);
+                                                                    note2.put("username", "User " + username);
+                                                                    note2.put("status", "Request Received");
 
-                                                                // Toast.makeText(getActivity(), "item available", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                            else {
-                                                                Toast.makeText(getActivity(), "Limit Exceded", Toast.LENGTH_SHORT).show();
-                                                            }
+                                                                    note2.put("uid", uid);
+                                                                    note2.put("timestamp", FieldValue.serverTimestamp());
+                                                                    adminlogs.set(note2);
+
+                                                                    // Toast.makeText(getActivity(), "item available", Toast.LENGTH_SHORT).show();
+                                                                  //  }catch (NumberFormatException ex){Toast.makeText(getActivity(), "Limit Exceded", Toast.LENGTH_SHORT).show();}
+                                                                }
+
+                                                          /*  else {
+
+                                                                    Toast.makeText(getActivity(), "Limit Exceded", Toast.LENGTH_SHORT).show();
+                                                            }*/
+
+
+
                                                         }
+
+
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
@@ -172,6 +193,7 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                                                     });
                                         }
                                     })
+
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
@@ -182,6 +204,7 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
 
                            // Toast.makeText(getActivity(), "count   " +countavail, Toast.LENGTH_SHORT).show();
 
+                            }catch (NumberFormatException ex){Toast.makeText(getActivity(), "Specify count", Toast.LENGTH_SHORT).show();}
                         }
                     });
 

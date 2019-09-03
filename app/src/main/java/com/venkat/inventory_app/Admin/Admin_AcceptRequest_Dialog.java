@@ -97,6 +97,7 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                             final Map<String, Object> note = new HashMap<>();
                                                             note.put("docuID",nbid);
 
+
                                                             Number countreq1 = (Long) documentSnapshot.get("reqcount");
                                                             final int reqcount = countreq1.intValue();
                                                             final DocumentReference nbref1 = db.collection("Notebook").document(nbid);
@@ -140,9 +141,21 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                                                 note1.put("username","Admin "+username);
                                                                                 note1.put("status","Request Accepted");
 
-                                                                                note1.put("uid",uid);
+                                                                                note1.put("uid",uid1);
                                                                                 note1.put("timestamp", FieldValue.serverTimestamp());
                                                                                 adminlogs.set(note1);
+
+                                                                                DocumentReference userlogs = db.collection("Users").document("Items").collection("Logs "+uid1).document();
+                                                                                Map<String, Object> note11 = new HashMap<>();
+                                                                                note11.put("item_name", nameitem);
+                                                                                note11.put("countitem", reqcount);
+                                                                                note11.put("username",username);
+                                                                                note11.put("status","Request Accepted");
+
+                                                                                note11.put("uid",uid1);
+                                                                                note11.put("timestamp", FieldValue.serverTimestamp());
+                                                                                userlogs.set(note11);
+
                                                                                 rqref.delete();
                                                                             }
                                                                         }

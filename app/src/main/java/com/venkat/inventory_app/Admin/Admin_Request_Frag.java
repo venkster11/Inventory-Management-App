@@ -42,7 +42,7 @@ public class Admin_Request_Frag extends Fragment {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
         final DocumentReference clickRef = db.document("Onclickrv/click");
-        Query query = notebookRef.orderBy("nameitem", Query.Direction.ASCENDING);
+        Query query = notebookRef.orderBy("timestamp", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Request_Model> options = new FirestoreRecyclerOptions.Builder<Request_Model>()
                 .setQuery(query, Request_Model.class)

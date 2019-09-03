@@ -163,6 +163,17 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
                                                                                     note2.put("uid", uid);
                                                                                     note2.put("timestamp", FieldValue.serverTimestamp());
                                                                                     adminlogs.set(note2);
+
+                                                                                    DocumentReference userlogs = db.collection("Users").document("Items").collection("Logs "+uid).document();
+                                                                                    Map<String, Object> note1 = new HashMap<>();
+                                                                                    note1.put("item_name", itmname);
+                                                                                    note1.put("countitem", return_count);
+                                                                                    note1.put("username",username);
+                                                                                    note1.put("status","Item Returned");
+
+                                                                                    note1.put("uid", uid);
+                                                                                    note1.put("timestamp", FieldValue.serverTimestamp());
+                                                                                    userlogs.set(note1);
                                                                                 } /*else {
                                                                                     Toast.makeText(getActivity(), "Count exceeds ", Toast.LENGTH_SHORT).show();
                                                                                 }*/
