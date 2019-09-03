@@ -92,7 +92,8 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                            // final String docu_id_nb = documentSnapshot.getString("nbdocID");
                                                             final String uid1=documentSnapshot.getString("uid");
-                                                            final DocumentReference borrowed=db.collection(uid1).document();
+                                                           // final DocumentReference borrowed=db.collection(uid1).document();
+                                                            final DocumentReference borrowed = db.collection("Users").document("Items").collection(uid1).document();
                                                             final Map<String, Object> note = new HashMap<>();
                                                             note.put("docuID",nbid);
 

@@ -84,7 +84,7 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         final String userdid = documentSnapshot.getString("UsrdocID");
-                        final DocumentReference usrref = db.collection(uid).document(userdid);
+                        final DocumentReference usrref = db.collection("Users").document("Items").collection(uid).document(userdid);
                         usrref.get()
                               .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                   @Override
@@ -132,7 +132,7 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
                                                             final int countavail = countavail1.intValue();
 
 
-                                                            final DocumentReference usrref = db.collection(uid).document(userdid);
+                                                            final DocumentReference usrref = db.collection("Users").document("Items").collection(uid).document(userdid);
 
                                                             usrref.get()
                                                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

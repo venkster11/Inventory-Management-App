@@ -51,7 +51,8 @@ public class User_Borrowed_Frag extends Fragment {
         final DocumentReference clickRef = db.document("Onclickrv/click");
         // String uid = user.getUid();
         //private FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference notebookRef = db.collection(uid);
+        //CollectionReference notebookRef = db.collection(uid);
+        CollectionReference notebookRef = db.collection("Users").document("Items").collection(uid);
         Query query = notebookRef.orderBy("item_name", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Borrowed_Model> options = new FirestoreRecyclerOptions.Builder<Borrowed_Model>()
@@ -112,7 +113,7 @@ public class User_Borrowed_Frag extends Fragment {
                 clickRef.update("uid", uid);
                 clickRef.update("name", name);
 
-                final DocumentReference userref = db.collection(uid).document(docu_id);
+                final DocumentReference userref = db.collection("Users").document("Items").collection(uid).document(docu_id);
                 userref.get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
