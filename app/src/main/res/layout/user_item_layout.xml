@@ -3,12 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="6dp"
+    app:cardBackgroundColor="#b39ddb"
+    app:cardElevation="15dp"
+    android:fadingEdgeLength="15dp"
     android:id="@+id/rv_user_item_layout"
-    app:cardBackgroundColor="#9E9E9E">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -5,11 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".Not_needed.MainADM">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:background="#212121"
+        android:background="#ffffff"
         android:layout_height="match_parent"
         android:id="@+id/Recyview">
 
@@ -24,9 +25,9 @@
         android:layout_margin="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/lightdark"
+
         android:src="@drawable/ic_add_black_24dp"
-        app:backgroundTint="@color/lightdark"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

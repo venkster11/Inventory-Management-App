@@ -7,7 +7,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#212121"
+        android:background="#ffffff"
         android:id="@+id/request_recyclerview">
 
     </android.support.v7.widget.RecyclerView>

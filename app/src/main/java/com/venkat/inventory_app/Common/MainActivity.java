@@ -47,7 +47,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if( userid.equals("venkateshm11799@gmail.com") || userid.equals("adityap301@gmail.com")) {
                 Toast.makeText(this, "ADMIN - " + currentFirebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(MainActivity.this, MainAdmin_BottomNav.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                //startActivity(intent);
                 finish();
             }
             else
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Intent intent1=new Intent(MainActivity.this, MainUser_BottomNav.class);
                 startActivity(intent1);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 finish();
                 Toast.makeText(this, "USER - " + userid, Toast.LENGTH_SHORT).show();
             }
@@ -66,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     new AuthUI.IdpConfig.GoogleBuilder().build())).build(),
                     RC_SIGN_IN
             );
-
 
         }
 

@@ -9,7 +9,7 @@
         android:id="@+id/Recyviewu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#212121"
+        android:background="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="45dp">
 
