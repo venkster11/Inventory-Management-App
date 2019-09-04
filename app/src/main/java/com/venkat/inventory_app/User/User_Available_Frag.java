@@ -57,14 +57,37 @@ public class User_Available_Frag extends Fragment {
 //                .setQuery(query, Itemshow.class)
 //                .build();
 
-
-
-        adapter = new User_ItemAdapter(options);
+        adapter = new User_ItemAdapter(options) {
+            @Override
+            public void onDataChanged() {
+                // If the latest data has size 0
+                // Means there are no items, show the UI State accordingly
+                if (adapter.getItemCount() == 0) {
+                    ((MainUser_BottomNav) getActivity()).setUiState(R.drawable.ic_info, "There are no available items as of now");
+                } else {
+                    // If there are non-zero items though, hide it
+                    // Note that I cannot call hideUiState without the cast operation done ahead of it
+                    // getActivity() returns a regular FragmentActivity
+                    // So I need to cast it to MainUser_BottomNav
+                    // KNOWING that it is the parent activity.
+                    ((MainUser_BottomNav) getActivity()).hideUiState();
+                }
+                super.onDataChanged();
+            }
+        };
 
         RecyclerView recyclerViewu = rootView.findViewById(R.id.Recyviewu);
         recyclerViewu.setHasFixedSize(true);
         recyclerViewu.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewu.setAdapter(adapter);
+
+        // Firestore Adapter method to listen to incoming data
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+            }
+        });
 
         adapter.setOnItemClickListener(new User_ItemAdapter.OnItemClickListner() {
             @Override

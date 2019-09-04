@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,6 +101,10 @@ public class ExampleDialog extends AppCompatDialogFragment {
         note.put("timestamp", FieldValue.serverTimestamp());
 
         adminlogs.set(note);
+
+            if (getView() != null)
+                Snackbar.make(getView(), String.format("'%d' number of Item '%s' added successfully", count, item_name), BaseTransientBottomBar.LENGTH_LONG).show();
+
         }catch (NumberFormatException ex){
             Toast.makeText(getActivity(),"Mention the item details",Toast.LENGTH_SHORT).show();
         }

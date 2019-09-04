@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,6 +95,9 @@ public class Admin_CountUpdate_Dialog extends AppCompatDialogFragment {
                                                         note1.put("uid",uid);
                                                         note1.put("timestamp", FieldValue.serverTimestamp());
                                                         adminlogs.set(note1);
+
+                                                        if (getView() != null)
+                                                            Snackbar.make(getView(), String.format("Deleted '%d' number of component '%s' returned successfully", count, nameitem), BaseTransientBottomBar.LENGTH_LONG).show();
                                                         nbref.update("count",0);
                                                         //nbref.delete();
                                                     }
@@ -100,6 +105,7 @@ public class Admin_CountUpdate_Dialog extends AppCompatDialogFragment {
                                                 .addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
+
 
                                                     }
                                                 });
@@ -158,6 +164,9 @@ public class Admin_CountUpdate_Dialog extends AppCompatDialogFragment {
                                                             note1.put("uid",uid);
                                                             note1.put("timestamp", FieldValue.serverTimestamp());
                                                             adminlogs.set(note1);
+
+                                                            if (getView() != null)
+                                                                Snackbar.make(getView(), String.format("Updated count of '%s' to '%d' successfully", nameitem, count), BaseTransientBottomBar.LENGTH_LONG).show();
                                                         }
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {

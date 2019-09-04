@@ -25,6 +25,7 @@ import com.google.firebase.firestore.Query;
 import com.venkat.inventory_app.Adapters.Admin_Request_Adapter;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.Model.Request_Model;
+import com.venkat.inventory_app.User.MainUser_BottomNav;
 
 public class Admin_Request_Frag extends Fragment {
 
@@ -48,13 +49,30 @@ public class Admin_Request_Frag extends Fragment {
                 .setQuery(query, Request_Model.class)
                 .build();
 
-        adapter= new Admin_Request_Adapter(options);
+        adapter= new Admin_Request_Adapter(options) {
+            @Override
+            public void onDataChanged() {
+                // If the latest data has size 0
+                // Means there are no items, show the UI State accordingly
+                if (adapter.getItemCount() == 0) { // wait, I'll take a search yp
+                    // TODO: Admin Request: Change Icon and Text
+                    ((MainAdmin_BottomNav) getActivity()).setUiState(R.drawable.ic_info, "There are no available items as of now");
+                } else {
+                    // If there are non-zero items though, hide it
+                    // Note that I cannot call hideUiState without the cast operation done ahead of it
+                    // getActivity() returns a regular FragmentActivity
+                    // So I need to cast it to MainUser_BottomNav
+                    // KNOWING that it is the parent activity.
+                    ((MainAdmin_BottomNav) getActivity()).hideUiState();
+                }
+                super.onDataChanged();
+            }
+        };
 
         RecyclerView req_recyclerView = rootView.findViewById(R.id.request_recyclerview);
         req_recyclerView.setHasFixedSize(true);
         req_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         req_recyclerView.setAdapter(adapter);
-
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                  ItemTouchHelper.RIGHT) {

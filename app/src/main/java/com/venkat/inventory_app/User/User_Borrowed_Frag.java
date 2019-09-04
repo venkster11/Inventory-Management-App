@@ -59,7 +59,25 @@ public class User_Borrowed_Frag extends Fragment {
                 .setQuery(query, Borrowed_Model.class)
                 .build();
 
-        adapter = new User_Borrowed_Adapter(options);
+        adapter = new User_Borrowed_Adapter(options) {
+            @Override
+            public void onDataChanged() {
+                // If the latest data has size 0
+                // Means there are no items, show the UI State accordingly
+                if (adapter.getItemCount() == 0) {
+                    // TODO No Borrowed Items: Get an appropriate Drawable
+                    ((MainUser_BottomNav) getActivity()).setUiState(R.drawable.ic_info, "You've not borrowed any items yet.");
+                } else {
+                    // If there are non-zero items though, hide it
+                    // Note that I cannot call hideUiState without the cast operation done ahead of it
+                    // getActivity() returns a regular FragmentActivity
+                    // So I need to cast it to MainUser_BottomNav
+                    // KNOWING that it is the parent activity.
+                    ((MainUser_BottomNav) getActivity()).hideUiState();
+                }
+                super.onDataChanged();
+            }
+        };
         RecyclerView recyclerViewu = rootView.findViewById(R.id.borrowed_recyview);
         recyclerViewu.setHasFixedSize(true);
         recyclerViewu.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -69,42 +87,7 @@ public class User_Borrowed_Frag extends Fragment {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Borrowed_Model note = documentSnapshot.toObject(Borrowed_Model.class);
-              /*  String user_docu_id = documentSnapshot.getId();
-                String path = documentSnapshot.getReference().getPath();
-                String itmname = documentSnapshot.getString("item_name");
-                String docuid=documentSnapshot.getString("docuID");
-                Number mycount= (Long) documentSnapshot.get("mycount");
 
-
-                DocumentReference realcountdb = db.collection("Notebook").document(docuid);
-                realcountdb.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Toast.makeText(getActivity(), "Error while loading!", Toast.LENGTH_SHORT).show();
-                            //Log.d(TAG, e.toString());
-                            return;
-                        }
-                        if (documentSnapshot.exists()) {
-                            realcount1 = (Long) documentSnapshot.get("count");
-                            realcount = realcount1.intValue();
-
-                        }
-
-                    }
-                });
-
-                Bundle args = new Bundle();
-                args.putString("key", itmname);
-                args.putString("docuid",docuid);
-                args.putLong("mycount", (Long) mycount);
-               args.putLong("realcount",  realcount);
-               args.putString("userdoc",user_docu_id);
-               args.putString("uid",uid);
-
-                DialogFragment newFragment = new User_Return_Dialog();
-                newFragment.setArguments(args);
-                newFragment.show(getFragmentManager(), "TAG");*/
 
                 String docu_id = documentSnapshot.getId();
                 String name = user.getDisplayName();
@@ -139,6 +122,7 @@ public class User_Borrowed_Frag extends Fragment {
                                                // clickRef.update("itemname",itmname);
                                             }
                                         });*/
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

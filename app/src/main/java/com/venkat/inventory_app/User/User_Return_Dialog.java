@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -177,13 +179,18 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
                                                                                 } /*else {
                                                                                     Toast.makeText(getActivity(), "Count exceeds ", Toast.LENGTH_SHORT).show();
                                                                                 }*/
+                                                                                if (getView() != null)
+                                                                                {Snackbar.make(getView(), String.format("'%d' number of Item '%s' returned successfully", return_count, itmname), BaseTransientBottomBar.LENGTH_LONG).show();}
 
                                                                             }catch (NumberFormatException ex){}
+
                                                                         }
                                                                     })
                                                                     .addOnFailureListener(new OnFailureListener() {
                                                                         @Override
                                                                         public void onFailure(@NonNull Exception e) {
+                                                                            if (getView() != null)
+                                                                                Snackbar.make(getView(), String.format("Item '%s' not returned successfully", itmname), BaseTransientBottomBar.LENGTH_LONG).show();
 
                                                                         }
                                                                     });

@@ -2,6 +2,7 @@ package com.venkat.inventory_app.User;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,10 +23,15 @@ import com.venkat.inventory_app.R;
 
 public class MainUser_BottomNav extends AppCompatActivity {
 
+    private ImageView uiStateIcon;
+    private TextView uiStateMessage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_user_bottom_nav);
+        uiStateIcon = findViewById(R.id.ui_state_image);
+        uiStateMessage = findViewById(R.id.ui_state_message);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.user_bottom_nav,new User_Available_Frag()).commit();
@@ -36,7 +45,17 @@ public class MainUser_BottomNav extends AppCompatActivity {
         return true;
     }
 
+    public void setUiState(@DrawableRes int drawableRes, @NonNull String message) {
+        uiStateMessage.setVisibility(View.VISIBLE);
+        uiStateIcon.setVisibility(View.VISIBLE);
+        uiStateIcon.setImageResource(drawableRes);
+        uiStateMessage.setText(message);
+    }
 
+    public void hideUiState() {
+        uiStateMessage.setVisibility(View.GONE);
+        uiStateIcon.setVisibility(View.GONE);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection

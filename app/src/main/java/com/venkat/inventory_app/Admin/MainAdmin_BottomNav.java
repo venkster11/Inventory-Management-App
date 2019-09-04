@@ -1,6 +1,7 @@
 package com.venkat.inventory_app.Admin;
 
 import android.content.Intent;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,10 +23,16 @@ import com.venkat.inventory_app.R;
 
 public class MainAdmin_BottomNav extends AppCompatActivity {
 
+    private ImageView uiStateIcon;
+    private TextView uiStateMessage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_admin__bottom_nav);
+
+        uiStateIcon = findViewById(R.id.ui_state_image);
+        uiStateMessage = findViewById(R.id.ui_state_message);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -30,6 +40,17 @@ public class MainAdmin_BottomNav extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new Admin_available_frag()).commit();
     }
 
+    public void setUiState(@DrawableRes int drawableRes, @NonNull String message) {
+        uiStateMessage.setVisibility(View.VISIBLE);
+        uiStateIcon.setVisibility(View.VISIBLE);
+        uiStateIcon.setImageResource(drawableRes);
+        uiStateMessage.setText(message);
+    }
+
+    public void hideUiState() {
+        uiStateMessage.setVisibility(View.GONE);
+        uiStateIcon.setVisibility(View.GONE);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

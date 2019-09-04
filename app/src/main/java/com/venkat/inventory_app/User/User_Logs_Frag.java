@@ -41,7 +41,25 @@ public class User_Logs_Frag extends Fragment {
         FirestoreRecyclerOptions<Logs_Model> options = new FirestoreRecyclerOptions.Builder<Logs_Model>()
                 .setQuery(query, Logs_Model.class)
                 .build();
-        adapter = new User_Logs_Adapter(options);
+        adapter = new User_Logs_Adapter(options) {
+            @Override
+            public void onDataChanged() {
+                // If the latest data has size 0
+                // Means there are no items, show the UI State accordingly
+                if (adapter.getItemCount() == 0) {
+                    // TODO No User Logs: Get an appropriate Drawable
+                    ((MainUser_BottomNav) getActivity()).setUiState(R.drawable.ic_info, "There's no activity to show");
+                } else {
+                    // If there are non-zero items though, hide it
+                    // Note that I cannot call hideUiState without the cast operation done ahead of it
+                    // getActivity() returns a regular FragmentActivity
+                    // So I need to cast it to MainUser_BottomNav
+                    // KNOWING that it is the parent activity.
+                    ((MainUser_BottomNav) getActivity()).hideUiState();
+                }
+                super.onDataChanged();
+            }
+        };
 
         RecyclerView req_recyclerView = RootView.findViewById(R.id.user_logs_recycler);
         req_recyclerView.setHasFixedSize(true);

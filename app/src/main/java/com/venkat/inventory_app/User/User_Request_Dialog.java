@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,9 +127,9 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                         @Override
                                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                            String nameitem = documentSnapshot.getString("item_name");
+                                                            final String nameitem = documentSnapshot.getString("item_name");
                                                             Number countavail1 = (Long) documentSnapshot.get("count");
-                                                            int countavail=countavail1.intValue();
+                                                            final int countavail=countavail1.intValue();
 
                                                             //int reqcount=Integer.parseInt(request_count.getText().toString());
 
@@ -141,15 +143,15 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
-
-                                                                                    //Toast.makeText(getContext(), "Request Sent", Toast.LENGTH_SHORT).show();
+                                                                                    if (getView() != null)
+                                                                                        Snackbar.make(getView(), String.format("Request for %d of '%s' sent successfully", countavail, nameitem), BaseTransientBottomBar.LENGTH_LONG).show();
                                                                                 }
                                                                             })
                                                                             .addOnFailureListener(new OnFailureListener() {
                                                                                 @Override
                                                                                 public void onFailure(@NonNull Exception e) {
-
-                                                                                    //Toast.makeText(getContext(), "Request Failed", Toast.LENGTH_SHORT).show();
+                                                                                    if (getView() != null)
+                                                                                        Snackbar.make(getView(), String.format("FAILED: Request for %d of '%s'", countavail, nameitem), BaseTransientBottomBar.LENGTH_LONG).show();
                                                                                 }
                                                                             });
 

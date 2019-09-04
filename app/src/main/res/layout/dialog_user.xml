@@ -2,16 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textSize="20sp"
+        android:id="@+id/rv_item_name_label"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/rv_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:layout_alignParentStart="true"
-        android:text="item name"
+        android:layout_toEndOf="@id/rv_item_name_label"
+        tools:text="item name"
         android:textSize="20sp" />
+
    <!-- <TextView
         android:id="@+id/rv_avail"
         android:layout_width="wrap_content"
@@ -24,31 +34,37 @@
         android:textSize="20sp"></TextView>-->
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Count Available: "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:id="@+id/rv_item_count_label"
+        android:layout_below="@id/rv_item_name_label"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
         android:id="@+id/rv_count_avail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:layout_toRightOf="@id/rv_item_name"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"></TextView>
+        tools:text="99"
+        android:layout_alignTop="@id/rv_item_count_label"
+        android:layout_toEndOf="@id/rv_item_count_label"
+        android:layout_below="@id/rv_item_name_label"
+        android:textSize="20sp"/>
+
     <EditText
         android:id="@+id/rv_count"
-        android:layout_width="77dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_below="@+id/rv_item_name"
+        android:textSize="24sp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/rv_item_count_label"
         android:textColorHint="#ce93d8"
         android:textColor="#000000"
-        android:hint="Count"
+        android:hint="Specify count"
         android:inputType="number" />
-
-        //android:layout_width="wrap_content"
-        //android:layout_height="wrap_content"
-       // android:layout_below="@id/rv_count"
-       // android:gravity="center_horizontal"
-       // android:text="REQUEST"
-       // android:id="@+id/rv_request"
-       // android:layout_centerHorizontal="true"
-        />
 
 </RelativeLayout>

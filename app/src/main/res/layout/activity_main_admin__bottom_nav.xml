@@ -25,4 +25,6 @@
 
     </android.support.design.widget.BottomNavigationView>
 
+    <include layout="@layout/common_ui_state" />
+
 </RelativeLayout>

@@ -18,7 +18,6 @@
         app:layout_constraintTop_toTopOf="parent">
     </FrameLayout>
 
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
@@ -28,5 +27,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu" />
+
+    <include layout="@layout/common_ui_state" />
 
 </android.support.constraint.ConstraintLayout>

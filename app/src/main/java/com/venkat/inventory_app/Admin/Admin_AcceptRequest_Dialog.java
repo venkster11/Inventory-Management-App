@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
@@ -99,6 +101,9 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                             note11.put("timestamp", FieldValue.serverTimestamp());
                                                             userlogs.set(note11);
 
+                                                            if (getView() != null)
+                                                                Snackbar.make(getView(), String.format("Request rejected for '%d' number of Item '%s' ", count, nameitem), BaseTransientBottomBar.LENGTH_LONG).show();
+
                                                             rqref.delete();
                                                         }
                                                     });
@@ -192,6 +197,9 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                                                 note11.put("uid",uid1);
                                                                                 note11.put("timestamp", FieldValue.serverTimestamp());
                                                                                 userlogs.set(note11);
+
+                                                                                if (getView() != null)
+                                                                                    Snackbar.make(getView(), String.format("Request accepted for'%d' number of Item '%s'", reqcount, nameitem), BaseTransientBottomBar.LENGTH_LONG).show();
 
                                                                                 rqref.delete();
                                                                             }
