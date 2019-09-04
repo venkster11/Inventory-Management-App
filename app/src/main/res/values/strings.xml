@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Inventory_App</string>
-    <string name="title_activity_main_user__bottom_nav">MainUser_BottomNav</string>
+    <string name="app_name">Inventory</string>
+    <string name="title_activity_main_user__bottom_nav">Inventory</string>
     <string name="title_available">Available</string>
     <string name="title_borrowed">Borrowed</string>
     <string name="title_logs">Logs</string>

@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.venkat.inventory_app.Model.Request_Model;
 import com.venkat.inventory_app.R;
 
 import java.util.HashMap;
@@ -47,9 +48,13 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
         final LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.admin_accept_request_dialog,null);
 
-       /* itemsname=view.findViewById(R.id.acptreqname);
+        itemsname=view.findViewById(R.id.acptreqname);
         avlc=view.findViewById(R.id.avilcount);
-        reqc=view.findViewById(R.id.reqcount);*/
+        reqc=view.findViewById(R.id.reqcount);
+
+        final FirebaseFirestore db=FirebaseFirestore.getInstance();
+        final DocumentReference clickRef = db.document("Onclickrv/click");
+
 
 
 
@@ -233,6 +238,66 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                         }
                     });
         //}
+        clickRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        final String docu_id1 = documentSnapshot.getString("reqdocID");
+                        final String username=documentSnapshot.getString("name");
+                        final String uid=documentSnapshot.getString("uid");
+                        final String nbid=documentSnapshot.getString("nbdocID");
+                      /*  final DocumentReference nbre2 = db.collection("Notebook").document(nbid);
+                        nbre2.get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        final String nameitem = documentSnapshot.getString("item_name");
+                                        Number countavail1 = (Long) documentSnapshot.get("count");
+                                        int countavail=countavail1.intValue();
+                                        //itemsname.setText(nameitem);
+                                       // avlc.setText(String.valueOf(countavail));
+                                    }
+                                });*/
+
+                        //  Number countreq1 = (Long) documentSnapshot.get("reqcount");
+                        //  final int reqcount = countreq1.intValue();
+                        final DocumentReference rqref = db.collection("Requests").document(docu_id1);
+                        rqref.get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        final String uid1=documentSnapshot.getString("uid");
+                                        final DocumentReference borrowed = db.collection("Users").document("Items").collection(uid1).document();
+                                        Number countreq1 = (Long) documentSnapshot.get("reqcount");
+                                        final int reqcount = countreq1.intValue();
+                                        final String nameitem = (String) documentSnapshot.get("nameitem");
+                                        final DocumentReference nbref1 = db.collection("Notebook").document(nbid);
+                                        nbref1.get()
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                        //final String nameitem = documentSnapshot.getString("item_name");
+                                                        Number countavail1 = (Long) documentSnapshot.get("count");
+                                                        int countavail=countavail1.intValue();
+                                                        itemsname.setText(nameitem);
+                                                        //  avlc.setText(String.valueOf(countavail));
+                                                        reqc.setText(String.valueOf(reqcount));
+                                                        clickRef.get()
+                                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                    @Override
+                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                        Number countreal1 = (Long) documentSnapshot.get("realcount");
+                                                                        int countreal = countreal1.intValue();
+                                                                        avlc.setText(String.valueOf(countreal));
+                                                                    }
+                                                                });
+                                                    }
+                                                });
+                                    }
+                                });
+
+                    }
+                });
         return builder.create();
     }
 }

@@ -56,7 +56,7 @@ public class Admin_Request_Frag extends Fragment {
                 // Means there are no items, show the UI State accordingly
                 if (adapter.getItemCount() == 0) { // wait, I'll take a search yp
                     // TODO: Admin Request: Change Icon and Text
-                    ((MainAdmin_BottomNav) getActivity()).setUiState(R.drawable.ic_info, "There are no available items as of now");
+                    ((MainAdmin_BottomNav) getActivity()).setUiState(R.drawable.ic_notifications_black_24dp, "There are no requests as of now");
                 } else {
                     // If there are non-zero items though, hide it
                     // Note that I cannot call hideUiState without the cast operation done ahead of it
@@ -126,6 +126,17 @@ public class Admin_Request_Frag extends Fragment {
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 String nbdid = documentSnapshot.getString("docu_id");
                                 clickRef.update("nbdocID", nbdid);
+                                DocumentReference nbreff = db.collection("Notebook").document(nbdid);
+                                nbreff.get()
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                                Number countavail1 = (Long) documentSnapshot.get("count");
+                                                int countavail=countavail1.intValue();
+                                                clickRef.update("realcount",countavail);
+                                            }
+                                        });
                             }
                         });
                 clickRef.update("reqdocID", docu_id);

@@ -11,12 +11,15 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".User.MainUser_BottomNav"
-            android:label="@string/title_activity_main_user__bottom_nav"></activity>
-        <activity android:name=".Admin.MainAdmin_BottomNav" />
+            android:label="@string/title_activity_main_user__bottom_nav"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Admin.MainAdmin_BottomNav"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Not_needed.MainUSER" />
         <activity android:name=".Not_needed.Add_item" />
         <activity android:name=".Not_needed.MainADM" />
-        <activity android:name=".Common.MainActivity">
+        <activity android:name=".Common.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

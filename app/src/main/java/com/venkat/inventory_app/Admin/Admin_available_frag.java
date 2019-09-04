@@ -67,7 +67,7 @@ public class Admin_available_frag extends Fragment {
                 // Means there are no items, show the UI State accordingly
                 if (adapter.getItemCount() == 0) {
                     // TODO: Admin Available: Change Icon and Text
-                    ((MainAdmin_BottomNav) getActivity()).setUiState(R.drawable.ic_info, "There are no available items as of now");
+                    ((MainAdmin_BottomNav) getActivity()).setUiState(R.drawable.ic_list_black_24dp, "There are no available items as of now");
                 } else {
                     // If there are non-zero items though, hide it
                     // Note that I cannot call hideUiState without the cast operation done ahead of it
