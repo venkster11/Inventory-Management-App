@@ -8,8 +8,8 @@
     android:layout_marginTop="10dp"
     app:cardCornerRadius="6dp"
     app:cardBackgroundColor="#b39ddb"
-    app:cardElevation="15dp"
-    android:fadingEdgeLength="15dp"
+    app:cardElevation="8dp"
+    android:fadingEdgeLength="8dp"
     android:id="@+id/borrowed_user_item_layout"
     >
     <RelativeLayout

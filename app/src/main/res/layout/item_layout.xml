@@ -8,8 +8,8 @@
     android:layout_marginTop="10dp"
     android:id="@+id/rootviewc"
     app:cardCornerRadius="6dp"
-    app:cardElevation="15dp"
-    android:fadingEdgeLength="15dp"
+    app:cardElevation="8dp"
+    android:fadingEdgeLength="8dp"
     app:cardBackgroundColor="#b39ddb">
 
     <RelativeLayout

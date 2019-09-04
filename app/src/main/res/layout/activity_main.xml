@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientcolor"
+    android:background="#d1c4e9"
     tools:context=".Common.MainActivity">
 
 
@@ -46,7 +46,7 @@
         android:layout_marginBottom="136dp"
         android:background="@drawable/curvebtn"
         android:text="SIGN IN"
-        android:textColor="#000"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
