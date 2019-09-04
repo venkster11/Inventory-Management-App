@@ -93,7 +93,7 @@ public class Admin_available_frag extends Fragment {
                 clickRef.update("docID", docu_id);
                 clickRef.update("uid", uid);
                 clickRef.update("name", name);
-                Toast.makeText(getActivity(), "clicked " + docu_id,Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "clicked " + docu_id,Toast.LENGTH_SHORT).show();
 
                 Admin_CountUpdate_Dialog admin_countUpdate_dialog = new Admin_CountUpdate_Dialog();
                 admin_countUpdate_dialog.show(getFragmentManager(), "count update dialog");

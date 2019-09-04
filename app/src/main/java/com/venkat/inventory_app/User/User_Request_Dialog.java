@@ -30,6 +30,7 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText request_count;
     private TextView item_name_dialog;
+    private TextView countcurravail;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
 
 
         item_name_dialog=view.findViewById(R.id.rv_item_name);
+        countcurravail=view.findViewById(R.id.rv_count_avail);
        // Bundle mArgs = getArguments();
        // if(mArgs!=null) {
 
@@ -66,7 +68,10 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                                     @Override
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         String nameitem = documentSnapshot.getString("item_name");
+                                        Number countavail1 = (Long) documentSnapshot.getLong("count");
+                                        int countavail=countavail1.intValue();
                                         item_name_dialog.setText(nameitem);
+                                        countcurravail.setText(String.valueOf(countavail));
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -153,7 +158,7 @@ public class User_Request_Dialog extends AppCompatDialogFragment {
                                                                 note1.put("item_name", nameitem);
                                                                 note1.put("countitem", reqcount);
                                                                 note1.put("username",username);
-                                                                note1.put("status","Request Sent");
+                                                                note1.put("status","Requested");
 
                                                                 note1.put("uid", uid);
                                                                 note1.put("timestamp", FieldValue.serverTimestamp());

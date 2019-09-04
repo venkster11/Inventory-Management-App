@@ -90,7 +90,7 @@ public class User_Available_Frag extends Fragment {
                 clickRef.update("docID", docu_id);
                 clickRef.update("uid", uid);
                 clickRef.update("name", name);
-                Toast.makeText(getActivity(), "clicked " + docu_id,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "clicked " + docu_id,Toast.LENGTH_SHORT).show();
 
                // DialogFragment newFragment = new User_Request_Dialog();
                // newFragment.setArguments(args);

@@ -28,6 +28,9 @@ import java.util.Map;
 public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private TextView itemsname;
+    private TextView avlc;
+    private TextView reqc;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String username = user.getDisplayName();
 
@@ -42,30 +45,65 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
         final LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.admin_accept_request_dialog,null);
 
-        //Bundle mArgs = getArguments();
-       /* if(mArgs!=null) {
-            final Number countavail1 = mArgs.getLong("countavail");
-            final int countavail = countavail1.intValue();
+       /* itemsname=view.findViewById(R.id.acptreqname);
+        avlc=view.findViewById(R.id.avilcount);
+        reqc=view.findViewById(R.id.reqcount);*/
 
-            final String docu_id = mArgs.getString("docu_id");
-            final String nameitem = mArgs.getString("nameitem");
-
-            final Number reqcount1 = mArgs.getLong("reqcount");
-            final int reqcount = reqcount1.intValue();
-
-            final String uid = mArgs.getString("uid");
-            final String Request_docuID = mArgs.getString("Request_docu_id");
-
-
-            final int remaining_item = countavail-reqcount;*/
 
 
             builder.setView(view)
                     .setTitle("Requests")
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Reject", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                            // Toast.makeText(getActivity(), "currid  "+Request_docuID, Toast.LENGTH_SHORT).show();
+                            final FirebaseFirestore db=FirebaseFirestore.getInstance();
+                            final DocumentReference clickRef = db.document("Onclickrv/click");
+                            clickRef.get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            final String docu_id1 = documentSnapshot.getString("reqdocID");
+                                            final String username=documentSnapshot.getString("name");
+                                            final String uid=documentSnapshot.getString("uid");
+                                            //final String nbid=documentSnapshot.getString("nbdocID");
+                                           // final String name=documentSnapshot.getString("name");
+                                            final DocumentReference rqref = db.collection("Requests").document(docu_id1);
+                                            rqref.get()
+                                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                            final String uid1=documentSnapshot.getString("uid");
+                                                            Number count = (Long) documentSnapshot.get("reqcount");
+                                                            String nameitem = (String) documentSnapshot.get("nameitem");
+
+                                                            DocumentReference adminlogs = db.collection("AdminLogs1").document();
+                                                            Map<String, Object> note1 = new HashMap<>();
+                                                            note1.put("item_name", nameitem);
+                                                            note1.put("countitem", count);
+                                                            note1.put("username","Admin "+username);
+                                                            note1.put("status","Request Rejected");
+
+                                                            note1.put("uid",uid);
+                                                            note1.put("timestamp", FieldValue.serverTimestamp());
+                                                            adminlogs.set(note1);
+
+                                                            DocumentReference userlogs = db.collection("Users").document("Items").collection("Logs "+uid1).document();
+                                                            Map<String, Object> note11 = new HashMap<>();
+                                                            note11.put("item_name", nameitem);
+                                                            note11.put("countitem", count);
+                                                            note11.put("username",username);
+                                                            note11.put("status","Rejected");
+
+                                                            note11.put("uid",uid1);
+                                                            note11.put("timestamp", FieldValue.serverTimestamp());
+                                                            userlogs.set(note11);
+
+                                                            rqref.delete();
+                                                        }
+                                                    });
+                                        }
+                                    });
 
                         }
                     })
@@ -112,8 +150,6 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                                             if (reqcount<=countavail){
                                                                                 nbref1.update("count",remaining_item);
 
-
-
                                                                                 note.put("item_name", nameitem);
                                                                                 note.put("mycount", reqcount);
 
@@ -134,6 +170,7 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                                                             }
                                                                                         });
 
+
                                                                                 DocumentReference adminlogs = db.collection("AdminLogs1").document();
                                                                                 Map<String, Object> note1 = new HashMap<>();
                                                                                 note1.put("item_name", nameitem);
@@ -150,7 +187,7 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
                                                                                 note11.put("item_name", nameitem);
                                                                                 note11.put("countitem", reqcount);
                                                                                 note11.put("username",username);
-                                                                                note11.put("status","Request Accepted");
+                                                                                note11.put("status","Accepted");
 
                                                                                 note11.put("uid",uid1);
                                                                                 note11.put("timestamp", FieldValue.serverTimestamp());
@@ -184,55 +221,7 @@ public class Admin_AcceptRequest_Dialog extends AppCompatDialogFragment {
 
                                         }
                                     });
-                         /*   DocumentReference noteRef=db.collection("Notebook").document(docu_id);
-                            noteRef.update("count",remaining_item);
 
-                            DocumentReference borrowed=db.collection(uid).document();
-
-                            Map<String, Object> note = new HashMap<>();
-                            note.put("item_name", nameitem);
-                            note.put("mycount", reqcount);
-                            note.put("docuID",docu_id);
-                            //View rootView = inflater.inflate(R.layout.request_recycler, null);
-                            //requested=(TextView) view.findViewById(R.id.requested_text);
-                            //requested.setText("Accepted");
-
-
-                            borrowed.set(note)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                           // Toast.makeText(MainActivity.this, "Note saved", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            //Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
-                                            //Log.d(TAG, e.toString());
-                                            //Log.d(TAG, "onFailure: ");
-                                        }
-                                    });*/
-
-                          /*  DocumentReference adminlogs = db.collection("AdminLogs").document();
-                            Map<String, Object> note1 = new HashMap<>();
-                            note1.put("item_name", nameitem);
-                            note1.put("countitem", reqcount);
-                            note1.put("username","Admin "+username);
-                            note1.put("status","Request Accepted");
-                            adminlogs.set(note1);
-
-                            DocumentReference userlogs = db.collection(uid+" Logs").document();
-                            Map<String, Object> note11 = new HashMap<>();
-                            note11.put("item_name", nameitem);
-                            note11.put("countitem", reqcount);
-                            note11.put("username",username);
-                            note11.put("status","Request Accepted");
-                            userlogs.set(note11);*/
-
-                            //Toast.makeText(getActivity(), "data" + nameitem, Toast.LENGTH_SHORT).show();
-                           // DocumentReference requestdelete=db.collection("Requests").document(Request_docuID);
-                           // requestdelete.delete();
                         }
                     });
         //}

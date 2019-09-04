@@ -100,7 +100,7 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
 
 
             builder.setView(view)
-                    .setTitle("Return")
+                    .setTitle("Return Item")
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -169,7 +169,7 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
                                                                                     note1.put("item_name", itmname);
                                                                                     note1.put("countitem", return_count);
                                                                                     note1.put("username",username);
-                                                                                    note1.put("status","Item Returned");
+                                                                                    note1.put("status","Returned");
 
                                                                                     note1.put("uid", uid);
                                                                                     note1.put("timestamp", FieldValue.serverTimestamp());
