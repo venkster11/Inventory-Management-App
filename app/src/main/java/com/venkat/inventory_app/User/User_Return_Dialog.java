@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 public class User_Return_Dialog extends AppCompatDialogFragment {
     private EditText ReturnCount;
     private TextView nameofitem;
-
+    private TextView mycountavail;
 
     private Number mycountavail1;
    // private int countavail;
@@ -63,6 +63,7 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
         final String username = user.getDisplayName();
         nameofitem=view.findViewById(R.id.return_item_name);
         ReturnCount = view.findViewById(R.id.return_count);
+        mycountavail = view.findViewById(R.id.mycount_avail);
 
      /*   Bundle mArgs = getArguments();
         if(mArgs!=null) {
@@ -93,7 +94,10 @@ public class User_Return_Dialog extends AppCompatDialogFragment {
                                   public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                                       final String itmname = documentSnapshot.getString("item_name");
+                                      Number mycount = (Number) documentSnapshot.getLong("mycount");
+                                      final int my_count = mycount.intValue();
                                       nameofitem.setText(itmname);
+                                      mycountavail.setText(String.valueOf(my_count));
                                   }
                               });
 

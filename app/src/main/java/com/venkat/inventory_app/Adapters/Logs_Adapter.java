@@ -12,6 +12,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.venkat.inventory_app.Model.Logs_Model;
 import com.venkat.inventory_app.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Logs_Adapter extends FirestoreRecyclerAdapter<Logs_Model, Logs_Adapter.LogsHolder> {
 
 
@@ -26,6 +29,12 @@ public class Logs_Adapter extends FirestoreRecyclerAdapter<Logs_Model, Logs_Adap
         holder.itemnamelog.setText(model.getItem_name());
         holder.usernamelog.setText(model.getUsername());
         holder.status.setText(model.getStatus());
+
+        Date now = model.getTimestamp();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("d-M-y 'at' h:m:s a z");
+        String dateFormat = dateFormatter.format(now);
+        holder.log_time.setText(dateFormat);
+
     }
 
     @NonNull
@@ -40,6 +49,7 @@ public class Logs_Adapter extends FirestoreRecyclerAdapter<Logs_Model, Logs_Adap
         TextView usernamelog;
         TextView countlog;
         TextView status;
+        TextView log_time;
 
         public LogsHolder(@NonNull View itemView) {
             super(itemView);
@@ -47,6 +57,7 @@ public class Logs_Adapter extends FirestoreRecyclerAdapter<Logs_Model, Logs_Adap
             usernamelog=itemView.findViewById(R.id.user_name_log);
             countlog=itemView.findViewById(R.id.count_log);
             status=itemView.findViewById(R.id.status_log);
+            log_time=itemView.findViewById(R.id.log_timestamp);
 
         }
     }

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,6 +33,8 @@ public class Admin_CountUpdate_Dialog extends AppCompatDialogFragment {
     private EditText update_count;
     private @ServerTimestamp
     Date timestamp;
+    TextView Nameofitem;
+    TextView Countofitem;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -42,14 +45,26 @@ public class Admin_CountUpdate_Dialog extends AppCompatDialogFragment {
         final FirebaseFirestore db=FirebaseFirestore.getInstance();
         final DocumentReference clickRef = db.document("Onclickrv/click");
 
-
-       /* final String did1 = "";
+        Nameofitem=view.findViewById(R.id.rv_item_name);
+        Countofitem=view.findViewById(R.id.rv_count_avail);
+      //  final String did1 = "";
         clickRef.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         String didd = documentSnapshot.getString("docID");
-                        String did1=didd;
+                        final DocumentReference nbref = db.collection("Notebook").document(didd);
+                        nbref.get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        Number count1 = (Long) documentSnapshot.get("count");
+                                        String nameitem = (String) documentSnapshot.get("item_name");
+                                        int count = count1.intValue();
+                                        Nameofitem.setText(nameitem);
+                                        Countofitem.setText(String.valueOf(count));
+                                    }
+                                });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -57,13 +72,13 @@ public class Admin_CountUpdate_Dialog extends AppCompatDialogFragment {
                     public void onFailure(@NonNull Exception e) {
 
                     }
-                });*/
+                });
 
 
         update_count=view.findViewById(R.id.updcount);
         //final DocumentReference nbref = db.collection("Notebook").document(String.valueOf(did1));
         builder.setView(view)
-                .setTitle("Update Component")
+                .setTitle("Update or Delete Component")
                 .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

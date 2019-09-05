@@ -74,19 +74,7 @@ public class Admin_Request_Frag extends Fragment {
         req_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         req_recyclerView.setAdapter(adapter);
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                 ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
-                return false;
-            }
 
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
-                adapter.deleteItem(viewHolder.getAdapterPosition());
-            }
-        }).attachToRecyclerView(req_recyclerView);
 
         adapter.setOnItemClickListener(new Admin_Request_Adapter.OnItemClickListner() {
             @Override
@@ -95,26 +83,7 @@ public class Admin_Request_Frag extends Fragment {
                 Request_Model request_model = documentSnapshot.toObject(Request_Model.class);
 
 
-             /*   Number countavail =(Long) documentSnapshot.get("countavail");
-                String docu_id = (String) documentSnapshot.get("docu_id");
-                String nameitem = (String) documentSnapshot.get("nameitem");
-                Number reqcount = (Long) documentSnapshot.get("reqcount");
-                String uid = (String) documentSnapshot.get("uid");
-                String Request_docu_id = documentSnapshot.getId();
-                //Number RealAvailCount = (Long)notebookRef.document(docu_id)
 
-                Bundle args = new Bundle();
-                args.putLong("countavail", (Long) countavail);
-                args.putString("docu_id",docu_id);
-                args.putString("nameitem",nameitem);
-                args.putLong("reqcount", (Long) reqcount);
-                args.putString("uid", uid);
-                args.putString("Request_docu_id",Request_docu_id);
-
-
-                DialogFragment newFragment = new Admin_AcceptRequest_Dialog();
-                newFragment.setArguments(args);
-                newFragment.show(getFragmentManager(), "TAG");*/
 
                 String docu_id = (String) documentSnapshot.getId();
                 String name = user.getDisplayName();

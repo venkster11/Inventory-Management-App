@@ -56,8 +56,8 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="6dp"
             app:cardBackgroundColor="#7e57c2"
-            app:cardElevation="15dp"
-            android:fadingEdgeLength="15dp"
+            app:cardElevation="8dp"
+            android:fadingEdgeLength="8dp"
             android:layout_toLeftOf="@id/item_name_logs_user"
             android:layout_alignParentEnd="true"
             >

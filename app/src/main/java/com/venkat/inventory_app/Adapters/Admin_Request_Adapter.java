@@ -2,6 +2,7 @@ package com.venkat.inventory_app.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.venkat.inventory_app.R;
 import com.venkat.inventory_app.Model.Request_Model;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Model,Admin_Request_Adapter.RequestHolder> {
 
@@ -56,6 +62,17 @@ public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Mode
 
        // holder.DatenTime.setText((Date)model.getTimestamp());
 
+       /* Date date = model.getTimestamp();
+        if (date != null) {
+            DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
+            String creationDate = dateFormat.format(date);
+            Log.d("TAG", creationDate);
+            holder.UserName.setText(creationDate);
+        }*/
+        Date now = model.getTimestamp();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("d-M-y 'at' h:m:s a z");
+        String dateFormat = dateFormatter.format(now);
+        holder.DatenTime.setText(dateFormat);
 
     }
 
@@ -84,6 +101,7 @@ public class Admin_Request_Adapter extends FirestoreRecyclerAdapter<Request_Mode
             UserName=itemView.findViewById(R.id.user_name_rq);
             AvailableCount=itemView.findViewById(R.id.countavailable);
             RequestedCount=itemView.findViewById(R.id.countrequested);
+            DatenTime=itemView.findViewById(R.id.req_timestamp);
             //DatenTime=itemView.findViewById(R.id.date_time);
 
             itemView.setOnClickListener(new View.OnClickListener() {
